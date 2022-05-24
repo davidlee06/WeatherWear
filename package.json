@@ -1,0 +1,19 @@
+{
+  "name": "weatherwear",
+  "version": "1.0.0",
+  "description": "An app that gives you suggestions on what to wear based on the weather in your area!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidlee06/WeatherWear.git"
+  },
+  "author": "David Lee, Tim Rolshud, Nico Kichukov, Jayden Maeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidlee06/WeatherWear/issues"
+  },
+  "homepage": "https://github.com/davidlee06/WeatherWear#readme"
+}
