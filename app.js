@@ -23,6 +23,16 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+app.get("/city", (req, res) => {
+    res.render("city");
+});
+
+app.get("/outfit", (req, res) => {
+    res.render("outfit");
+});
+
+
+
 // start server and have it listen to the part
 app.listen(port, () => {
     console.log(
