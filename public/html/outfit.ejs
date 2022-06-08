@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Wear</title>
     <!-- bootstrap css stuff -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
     <!-- our own css for this page -->
-    <link href="/css/index.css" rel="stylesheet" />
-  </head>
-  <body>
+    <link href="/css/city.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>
+        <button type="button" class="btn btn-primary col-3" id="search_button" onclick="redirect()">
+            <<< Back to Weather Screen </button>
+    </h1>
+
+    
+
     <!-- bootstrap container, put all visible elements in here and use the grid system to align everything -->
     <div class="container">
-      <div class="row">
-        <p class="title">WeatherWear</p>
-        <button type="button" class="btn btn-primary col-3" id="search_button" onclick="redirect()">
-            <<< Back to Weather Screen
-        </button>
-      </div>
-
-
+        <div class="row">
+            <p class="title">WeatherWear</p>
+        </div>
     </div>
+    <img src="https://tryhardguides.com/wp-content/uploads/2022/04/wilder-icon.png" alt="Wilder" width = "256" height "256" class = "centered">
     <!-- bootstrap js stuff  -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
     <script>
         function redirect() {
-            window.location.replace("city")
+            window.location.replace("city");
         }
     </script>
-  </body>
+</body>
+
 </html>

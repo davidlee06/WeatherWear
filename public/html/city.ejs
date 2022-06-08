@@ -16,6 +16,10 @@
         <link href="/css/city.css" rel="stylesheet" />
     </head>
     <body>
+        <h1>
+            <button type="button" class="btn btn-primary col-3" id="search_button" onclick="goBack()">
+                <<< Search Another City! </button>
+        </h1>
         <!-- bootstrap container, put all visible elements in here and use the grid system to align everything -->
         <div class="container">
 
@@ -66,6 +70,9 @@
         <script>
             function redirect() {
                 window.location.replace("outfit")
+            }
+            function goBack() {
+                window.location.replace("/")
             }
         </script>
         <script>

@@ -7,6 +7,14 @@
     color: rgb(26, 226, 240);
 }
 
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: "256";
+    height: "256"
+}
+
 .authors {
     font-size: 30px;
     text-align: center;
