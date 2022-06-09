@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
         <title>Weather Wear</title>
         <!-- bootstrap css stuff -->
         <link
@@ -18,48 +18,55 @@
     </head>
     <body>
         <h1>
-            <button type="button" class="btn btn-primary col-3" id="search_button" onclick="goBack()">
-                <<< Search Another City! </button>
+            <button
+                type="button"
+                class="btn btn-primary col-3"
+                id="search_button"
+                onclick="goBack()"
+            >
+                <<< Search Another City!
+            </button>
         </h1>
         <!-- bootstrap container, put all visible elements in here and use the grid system to align everything -->
         <div class="container">
-
             <div class="row">
                 <p class="title">WeatherWear</p>
             </div>
 
-            <div class = "row">
-                <p class = "cityname">
-                    CITYNAME
-                </p>
+            <div class="row">
+                <p class="cityname"><%= info.cityName %></p>
             </div>
 
-
-            <div class = "row">  <!-- make a table for the weatehr and stuff  -->
+            <div class="row">
+                <!-- make a table for the weatehr and stuff  -->
                 <table class="table">
                     <thead>
-                      <tr>
-                        <th class = "table_header" scope="col">DATE</th>
-                        <th class = "table_header" scope="col">High</th>
-                        <th class = "table_header" scope="col">Low</th>
-                        <th class = "table_header" scope="col">OutFit</th>
-                      </tr>
+                        <tr>
+                            <th class="table_header" scope="col">DATE</th>
+                            <th class="table_header" scope="col">High</th>
+                            <th class="table_header" scope="col">Low</th>
+                            <th class="table_header" scope="col">OutFit</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                      <tr>
-                        <th scope="row">Day #</th>
-                        <td>High</td>
-                        <td>Low</td>
-                        <td>
-                            <button type="button" class="btn btn-primary col-3" id="search_button" onclick="redirect()">
-                                View OutFit
-                            </button>
-                        </td>
-                      </tr>
-                      
+                        <tr>
+                            <th scope="row">Day #</th>
+                            <td>High</td>
+                            <td>Low</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    class="btn btn-primary col-3"
+                                    id="search_button"
+                                    onclick="redirect()"
+                                >
+                                    View OutFit
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
         <!-- bootstrap js stuff  -->
@@ -70,35 +77,38 @@
         ></script>
         <script>
             function redirect() {
-                window.location.replace("outfit")
+                window.location.replace("outfit");
             }
             function goBack() {
-                window.location.replace("/")
+                window.location.replace("/");
             }
         </script>
         <script>
             window.addEventListener("load", () => {
-              // PARSE THE JSON STRING INTO OBJECT FIRST
-              var data = 
-'{"Day1":"High Low","Day2":"High Low","Day3":"High Low","Day4":"High Low","Day5":"High Low","Day6":"High Low","Day7":"High Low"}';
-              data = JSON.parse(data);
-              // console.table(data);
-             
-              // GENERATE TABLE
-              // REATE EMPTY TABLE
-              var table = document.createElement("table"), row, cellA, cellB;
-              document.getElementById("pleaseGodIHope").appendChild(table);
-              for (let key in data) {
-                // ROWS & CELLS
-                row = table.insertRow();
-                cellA = row.insertCell();
-                cellB = row.insertCell();
-             
-                // KEY & VALUE
-                cellA.innerHTML = key;
-                cellB.innerHTML = data[key];
-              }
+                // PARSE THE JSON STRING INTO OBJECT FIRST
+                var data =
+                    '{"Day1":"High Low","Day2":"High Low","Day3":"High Low","Day4":"High Low","Day5":"High Low","Day6":"High Low","Day7":"High Low"}';
+                data = JSON.parse(data);
+                // console.table(data);
+
+                // GENERATE TABLE
+                // REATE EMPTY TABLE
+                var table = document.createElement("table"),
+                    row,
+                    cellA,
+                    cellB;
+                document.getElementById("pleaseGodIHope").appendChild(table);
+                for (let key in data) {
+                    // ROWS & CELLS
+                    row = table.insertRow();
+                    cellA = row.insertCell();
+                    cellB = row.insertCell();
+
+                    // KEY & VALUE
+                    cellA.innerHTML = key;
+                    cellB.innerHTML = data[key];
+                }
             });
-            </script>
+        </script>
     </body>
 </html>

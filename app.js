@@ -11,7 +11,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/public/html");
 app.set("view engine", "ejs");
 
-// make express work with post requests: make sure to JSON.stringify the bodies of all post requests from frontend, sending just javascript objects will result in empty body
+// make express work with post requests
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -19,15 +19,13 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.get("/city", (req, res) => {
-    res.render("city");
+app.post("/city", (req, res) => {
+    res.render("city", { info: {cityName: req.body.cityName} });
 });
 
 app.get("/outfit", (req, res) => {
     res.render("outfit");
 });
-
-
 
 // start server and have it listen to the part
 app.listen(port, () => {
