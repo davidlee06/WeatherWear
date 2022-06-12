@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/city", (req, res) => {
-    res.render("city", { info: {cityName: req.body.cityName} });
+    res.render("city", { info: { cityName: req.body.cityName } });
 });
 
 app.get("/outfit", (req, res) => {
