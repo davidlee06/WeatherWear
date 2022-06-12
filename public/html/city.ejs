@@ -25,7 +25,7 @@
             >
                 Return Home
             </button>
-            <button type="button" class="btn btn-primary float-end">°F</button>
+            <button type="button" class="btn btn-primary float-end">°C</button>
             <div class="row">
                 <p class="title">WeatherWear</p>
             </div>
@@ -46,21 +46,18 @@
                 </thead>
 
                 <tbody>
+                    <% for (let i = 0; i < array.length; ++i) { %>
                     <tr>
-                        <th scope="row">Day #</th>
-                        <td>High</td>
-                        <td>Low</td>
+                        <td scope="row"><%= array[i][0] %></td>
+                        <td><%= parseInt(array[i][2] - 273.15) %></td>
+                        <td><%= parseInt(array[i][1] - 273.15) %></td>
                         <td>
-                            <button
-                                type="button"
-                                class="btn btn-primary col-3"
-                                id="search_button"
-                                onclick="redirect()"
-                            >
-                                View OutFit
+                            <button type="button" class="btn btn-primary col-3">
+                                View Outfit
                             </button>
                         </td>
                     </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>
