@@ -4,3 +4,4 @@ node_modules/
 *.xml
 *.iml
 out/
+.env
