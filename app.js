@@ -3,7 +3,7 @@ const app = express();
 const port = 8080;
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const fetch = require("node-fetch");
+const axios = require("axios");
 dotenv.config();
 const apiKey = process.env.apiKey;
 
@@ -29,27 +29,20 @@ app.post("/city", (req, res) => {
         res.statusCode = 404;
         res.send("invalid city type specified");
     }
-    // get lat and long coords from city name
-    let lat;
-    let lon;
-    fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${stringArray[0]},${stringArray[1]},${stringArray[2]}&limit=1&appid=${apiKey}`
-    )
-        .then((geoLocationApiResponse) => geoLocationApiResponse.json())
-        .then((geoLocationApiResponseJson) => {
-            lat = geoLocationApiResponseJson[0].lat;
-            lon = geoLocationApiResponseJson[0].lon;
+    axios
+        .get(
+            `http://api.openweathermap.org/geo/1.0/direct?q=${stringArray[0]},${stringArray[1]},${stringArray[2]}&limit=1&appid=${apiKey}`
+        )
+        .then((response) => {
+            response.data[0];
+            axios
+                .get(
+                    `http://api.openweathermap.org/data/2.5/forecast?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${apiKey}`
+                )
+                .then((otherResponse) => {
+                    console.log(otherResponse.data);
+                });
         });
-    // get weather data from lat and long coords
-    let weatherData;
-    fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
-    )
-        .then((weatherApiResponse) => weatherApiResponse.json())
-        .then((weatherApiResponseJson) => {
-            weatherData = weatherApiResponseJson;
-        });
-    console.log(weatherData);
 });
 
 app.get("/outfit", (req, res) => {
