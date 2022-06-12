@@ -40,7 +40,42 @@ app.post("/city", (req, res) => {
                     `http://api.openweathermap.org/data/2.5/forecast?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${apiKey}`
                 )
                 .then((otherResponse) => {
-                    console.log(otherResponse.data);
+                    otherResponse = otherResponse.data;
+                    let newObject = { cityName: req.body.cityName, array: [] };
+                    for (let i = 0; i < otherResponse.list.length; ) {
+                        let tempTemps = [];
+                        let hoursPassed = 0;
+                        let tempDateString = new Date(
+                            otherResponse.list[i].dt * 1000
+                        ).toDateString();
+                        hoursPassed = new Date(
+                            otherResponse.list[i].dt * 1000
+                        ).getHours();
+                        while (
+                            hoursPassed < 24 &&
+                            i < otherResponse.list.length
+                        ) {
+                            tempTemps.push(otherResponse.list[i].main.temp);
+                            ++i;
+                            hoursPassed += 3;
+                        }
+                        // sort array, first one will be the smallest temp, other one will be the largest temp
+                        tempTemps.sort((a, b) => {
+                            if (a < b) {
+                                return -1;
+                            }
+                            if (a > b) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        newObject.array.push([
+                            tempDateString,
+                            tempTemps[0],
+                            tempTemps[tempTemps.length - 1],
+                        ]);
+                    }
+                    res.render("city", newObject);
                 });
         });
 });
