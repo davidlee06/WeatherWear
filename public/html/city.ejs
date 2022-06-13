@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-        <title>Weather Wear</title>
+        <title>Weather Wear - <%= cityName %></title>
         <!-- bootstrap css stuff -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -17,28 +17,33 @@
         <link href="/css/city.css" rel="stylesheet" />
     </head>
     <body>
-        <% let tempMode = "C" %>
         <div class="container-fluid">
-            <button
-                type="button"
-                class="btn btn-primary float-start"
-                onclick="goBack()"
-            >
-                Return Home
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary float-end"
-                style="background-color: rebeccapurple"
-                onclick="flipUnits()"
-                id="tempUnits"
-            >
-                °<%= tempMode %>
-            </button>
+            <div class="row align-items-center">
+                <button
+                    type="button"
+                    class="btn btn-primary col"
+                    onclick="goBack()"
+                >
+                    Return Home
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary col"
+                    style="background-color: rebeccapurple"
+                    onclick="flipUnits()"
+                    id="tempUnits"
+                >
+                    °C
+                </button>
+            </div>
 
-            <p class="title">WeatherWear</p>
+            <div class="row">
+                <p class="title">WeatherWear</p>
+            </div>
 
-            <p class="cityName"><%= cityName %></p>
+            <div class="row">
+                <p class="cityName"><%= cityName %></p>
+            </div>
 
             <!-- make a table for the weatehr and stuff  -->
             <table class="table">
@@ -50,22 +55,25 @@
                         <th class="table_header" scope="col">Outfit</th>
                     </tr>
                 </thead>
-                <tbody id="">
+                <tbody>
                     <% for (let i = 0; i < array.length; ++i) { %>
-                    <tr class="tableRow">
+                    <tr class="tableRow" id="row<%= i %>">
                         <td scope="row"><%= array[i][0] %></td>
+                        <td><%= parseInt(array[i][2] - 273.15) + "°C" %></td>
+                        <td><%= parseInt(array[i][1] - 273.15) + "°C" %></td>
                         <td>
-                            <%= parseInt(array[i][2] - 273.15) + "°" + tempMode
-                            %>
-                        </td>
-                        <td>
-                            <%= parseInt(array[i][1] - 273.15) + "°" + tempMode
-                            %>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary">
-                                View Outfit
-                            </button>
+                            <form method="POST" action="/outfit">
+                                <input
+                                    type="hidden"
+                                    name="temp"
+                                    value="<%=parseInt((array[i][2] + array[i][1] - 2 * 273.15) / 2) %>"
+                                />
+                                <input
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    value="View Outfit"
+                                />
+                            </form>
                         </td>
                     </tr>
                     <% } %>
