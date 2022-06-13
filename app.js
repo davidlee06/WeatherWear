@@ -80,8 +80,8 @@ app.post("/city", (req, res) => {
         });
 });
 
-app.get("/outfit", (req, res) => {
-    res.render("outfit");
+app.post("/outfit", (req, res) => {
+    res.render("outfit", { temp: req.body.temp });
 });
 
 // start server and have it listen to the part
