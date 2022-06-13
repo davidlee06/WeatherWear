@@ -17,57 +17,60 @@
         <link href="/css/city.css" rel="stylesheet" />
     </head>
     <body>
-        <h1>
+        <% let tempMode = "C" %>
+        <div class="container-fluid">
             <button
                 type="button"
-                class="btn btn-primary col-3"
-                id="search_button"
+                class="btn btn-primary float-start"
                 onclick="goBack()"
             >
-                <<< Search Another City!
+                Return Home
             </button>
-        </h1>
-        <!-- bootstrap container, put all visible elements in here and use the grid system to align everything -->
-        <div class="container">
-            <div class="row">
-                <p class="title">WeatherWear</p>
-            </div>
+            <button
+                type="button"
+                class="btn btn-primary float-end"
+                style="background-color: rebeccapurple"
+                onclick="flipUnits()"
+                id="tempUnits"
+            >
+                °<%= tempMode %>
+            </button>
 
-            <div class="row">
-                <p class="cityname"><%= info.cityName %></p>
-            </div>
+            <p class="title">WeatherWear</p>
 
-            <div class="row">
-                <!-- make a table for the weatehr and stuff  -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="table_header" scope="col">DATE</th>
-                            <th class="table_header" scope="col">High</th>
-                            <th class="table_header" scope="col">Low</th>
-                            <th class="table_header" scope="col">OutFit</th>
-                        </tr>
-                    </thead>
+            <p class="cityName"><%= cityName %></p>
 
-                    <tbody>
-                        <tr>
-                            <th scope="row">Day #</th>
-                            <td>High</td>
-                            <td>Low</td>
-                            <td>
-                                <button
-                                    type="button"
-                                    class="btn btn-primary col-3"
-                                    id="search_button"
-                                    onclick="redirect()"
-                                >
-                                    View OutFit
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- make a table for the weatehr and stuff  -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="table_header" scope="col">Date</th>
+                        <th class="table_header" scope="col">High</th>
+                        <th class="table_header" scope="col">Low</th>
+                        <th class="table_header" scope="col">Outfit</th>
+                    </tr>
+                </thead>
+                <tbody id="">
+                    <% for (let i = 0; i < array.length; ++i) { %>
+                    <tr class="tableRow">
+                        <td scope="row"><%= array[i][0] %></td>
+                        <td>
+                            <%= parseInt(array[i][2] - 273.15) + "°" + tempMode
+                            %>
+                        </td>
+                        <td>
+                            <%= parseInt(array[i][1] - 273.15) + "°" + tempMode
+                            %>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary">
+                                View Outfit
+                            </button>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
         <!-- bootstrap js stuff  -->
         <script
@@ -75,40 +78,6 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"
         ></script>
-        <script>
-            function redirect() {
-                window.location.replace("outfit");
-            }
-            function goBack() {
-                window.location.replace("/");
-            }
-        </script>
-        <script>
-            window.addEventListener("load", () => {
-                // PARSE THE JSON STRING INTO OBJECT FIRST
-                var data =
-                    '{"Day1":"High Low","Day2":"High Low","Day3":"High Low","Day4":"High Low","Day5":"High Low","Day6":"High Low","Day7":"High Low"}';
-                data = JSON.parse(data);
-                // console.table(data);
-
-                // GENERATE TABLE
-                // REATE EMPTY TABLE
-                var table = document.createElement("table"),
-                    row,
-                    cellA,
-                    cellB;
-                document.getElementById("pleaseGodIHope").appendChild(table);
-                for (let key in data) {
-                    // ROWS & CELLS
-                    row = table.insertRow();
-                    cellA = row.insertCell();
-                    cellB = row.insertCell();
-
-                    // KEY & VALUE
-                    cellA.innerHTML = key;
-                    cellB.innerHTML = data[key];
-                }
-            });
-        </script>
+        <script src="/javascripts/city.js"></script>
     </body>
 </html>

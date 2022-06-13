@@ -4,3 +4,6 @@ node_modules/
 *.xml
 *.iml
 out/
+.env
+temp.js
+temp.json
