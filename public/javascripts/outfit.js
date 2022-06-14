@@ -1,3 +1,4 @@
+// front end js for the outfit page
 function flipUnits() {
     let tempHTML = document.getElementById("flipUnits");
     let flipButton = document.getElementById("flipButton");

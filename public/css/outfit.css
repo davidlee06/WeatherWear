@@ -33,3 +33,11 @@ body {
     font-family: "Bebas Neue";
     color: rgb(98, 135, 255);
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 525px;
+    height: 900px;
+}
