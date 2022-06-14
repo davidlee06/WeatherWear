@@ -1,3 +1,4 @@
+// front end js for the city page
 function redirect() {
     window.location.replace("outfit");
 }
