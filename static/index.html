@@ -8,6 +8,7 @@
         <link href="/css/index.css" rel="stylesheet" />
         <!-- compatibility for browsers -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
     </head>
     <body>
         <div id="page-container">
@@ -15,23 +16,28 @@
             <div id="title">WeatherWear</div>
             <!-- search bar -->
             <div id="center-container">
-                <form action="/city" method="POST">
-                    <div id="search-container">
-                        <!-- TODO style the textbox and the search button they look terrible as of right now -->
-                        <input
-                            class="form-control"
-                            placeholder="Enter City Name (Ex: New York, NY, US)"
-                            name="cityName"
-                        />
-
-                        <input type="submit" value="Search" />
-                    </div>
-                </form>
+                <div id="search-container">
+                    <!-- TODO style the textbox and the search button they look terrible as of right now -->
+                    <input
+                        id="textbox"
+                        type="text"
+                        placeholder="Enter City Name (Ex: New York, NY)"
+                        name="rawText"
+                        id="rawTextInput"
+                    />
+                    <button type="button" id="search-button">Search</button>
+                </div>
             </div>
             <!-- footer -->
             <div id="footer-container">
                 <div>Created By Tim Rolshud, David Lee, Nico Kichukov, 2022 Congressional App Challenge</div>
             </div>
         </div>
+        <script src="/js/index.js"></script>
+        <!-- invisible form -->
+        <form id="hidden-form" action="/city" method="POST">
+            <input id="city" type="hidden" name="city" value="n/a" />
+            <input id="state" type="hidden" name="state" value="n/a" />
+        </form>
     </body>
 </html>
