@@ -15,12 +15,14 @@ for (file in oldFiles) {
     fs.unlinkSync(`public/images/generatedOutfits/${oldFiles[file]}`);
 }
 
+app.use("/bootstrap", express.static(`${__dirname}/node_modules/bootstrap`));
+
 // these are all promises, not actual images
 let images = {
-    _0C: { head: [], feet: [], feetFlipped: [], legs: [], torso: [] },
-    "0-10C": { head: [], feet: [], feetFlipped: [], legs: [], torso: [] },
-    "10-20C": { head: [], feet: [], feetFlipped: [], legs: [], torso: [] },
-    "20C+": { head: [], feet: [], feetFlipped: [], legs: [], torso: [] },
+    _0C: {head: [], feet: [], feetFlipped: [], legs: [], torso: []},
+    "0-10C": {head: [], feet: [], feetFlipped: [], legs: [], torso: []},
+    "10-20C": {head: [], feet: [], feetFlipped: [], legs: [], torso: []},
+    "20C+": {head: [], feet: [], feetFlipped: [], legs: [], torso: []}
 };
 const imageCoords = {
     _0C: {
@@ -28,29 +30,29 @@ const imageCoords = {
         feet: [383, 838, 433, 952, 400, 940, 410, 947],
         feetFlipped: [-26, 838, 21, 952, 7, 940, -20, 947],
         legs: [224, 746, 242, 746, 254, 750, 210, 750],
-        torso: [-15, 430, 35, 480, -21, 470, 57, 467],
+        torso: [-15, 430, 35, 480, -21, 470, 57, 467]
     },
     "0-10C": {
         head: [201, 0, 202, 0, 189, 0, 212, 0],
         feet: [440, 930, 440, 970, 380, 930, 436, 944],
         feetFlipped: [0, 930, 0, 970, 0, 930, 0, 944],
         legs: [250, 754, 243, 747, 250, 755, 256, 753],
-        torso: [50, 462, 13, 468, 28, 472, 75, 480],
+        torso: [50, 462, 13, 468, 28, 472, 75, 480]
     },
     "10-20C": {
         head: [247, 37, 218, 0, 209, 0, 213, 0],
         feet: [440, 930, 440, 970, 380, 930, 436, 944],
         feetFlipped: [0, 930, 0, 970, 0, 930, 0, 944],
         legs: [250, 754, 243, 747, 250, 755, 256, 753],
-        torso: [109, 457, 109, 457, 108, 476, 48, 477],
+        torso: [109, 457, 109, 457, 108, 476, 48, 477]
     },
     "20C+": {
         head: [247, 37, 218, 0, 209, 0, 213, 0],
         feet: [440, 930, 440, 970, 380, 930, 436, 944],
         feetFlipped: [0, 930, 0, 970, 0, 930, 0, 944],
         legs: [242, 748, 233, 752, 270, 755, 254, 744],
-        torso: [109, 457, 109, 457, 108, 476, 48, 477],
-    },
+        torso: [109, 457, 109, 457, 108, 476, 48, 477]
+    }
 };
 
 async function loadImages() {
@@ -58,14 +60,10 @@ async function loadImages() {
         // for all body parts in each range
         for (const bodyPart in images[tempRange]) {
             // for each file of each body part of each range
-            const files = fs.readdirSync(
-                `outfitImages/${tempRange}/${bodyPart}`
-            );
+            const files = fs.readdirSync(`outfitImages/${tempRange}/${bodyPart}`);
             for (const file in files) {
                 images[tempRange][bodyPart].push(
-                    await jimp.read(
-                        `outfitImages/${tempRange}/${bodyPart}/${files[file]}`
-                    )
+                    await jimp.read(`outfitImages/${tempRange}/${bodyPart}/${files[file]}`)
                 );
             }
         }
@@ -80,16 +78,12 @@ app.use(logger("dev"));
 
 // public folder will have all javascripts htmls and css that our page will render
 app.use(express.static(__dirname + "/public"));
-app.set("views", __dirname + "/public/html");
+app.set("views", __dirname + "/ssr");
 app.set("view engine", "ejs");
 
 // make express work with post requests
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.render("index");
-});
 
 app.post("/city", (req, res) => {
     let stringArray = req.body.cityName.split(", ");
@@ -109,20 +103,13 @@ app.post("/city", (req, res) => {
                 )
                 .then((otherResponse) => {
                     otherResponse = otherResponse.data;
-                    let newObject = { cityName: req.body.cityName, array: [] };
+                    let newObject = {cityName: req.body.cityName, array: []};
                     for (let i = 0; i < otherResponse.list.length; ) {
                         let tempTemps = [];
                         let hoursPassed = 0;
-                        let tempDateString = new Date(
-                            otherResponse.list[i].dt * 1000
-                        ).toDateString();
-                        hoursPassed = new Date(
-                            otherResponse.list[i].dt * 1000
-                        ).getHours();
-                        while (
-                            hoursPassed < 24 &&
-                            i < otherResponse.list.length
-                        ) {
+                        let tempDateString = new Date(otherResponse.list[i].dt * 1000).toDateString();
+                        hoursPassed = new Date(otherResponse.list[i].dt * 1000).getHours();
+                        while (hoursPassed < 24 && i < otherResponse.list.length) {
                             tempTemps.push(otherResponse.list[i].main.temp);
                             ++i;
                             hoursPassed += 3;
@@ -137,11 +124,7 @@ app.post("/city", (req, res) => {
                             }
                             return 0;
                         });
-                        newObject.array.push([
-                            tempDateString,
-                            tempTemps[0],
-                            tempTemps[tempTemps.length - 1],
-                        ]);
+                        newObject.array.push([tempDateString, tempTemps[0], tempTemps[tempTemps.length - 1]]);
                     }
                     res.render("city", newObject);
                 });
@@ -270,14 +253,12 @@ app.post("/outfit", (req, res) => {
     generateOutfit(req.body.temp, () => {
         res.render("outfit", {
             temp: req.body.temp,
-            imageURL: `/images/generatedOutfits/${imageId}.png`,
+            imageURL: `/images/generatedOutfits/${imageId}.png`
         });
     });
 });
 
 // start server and have it listen to the part
 app.listen(port, () => {
-    console.log(
-        `App server listening on ${port}. URL: http://localhost:${port})`
-    );
+    console.log(`App server listening on ${port}. URL: http://localhost:${port})`);
 });
