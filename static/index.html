@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-        <title>Weather Wear</title>
-        <!-- bootstrap css stuff -->
-        <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <!-- our own css for this page -->
+        <title>WeatherWear</title>
+        <!-- add here in case browser doesn't make automatic request for favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <!-- css file for this page -->
         <link href="/css/index.css" rel="stylesheet" />
+        <!-- compatibility for browsers -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
-        <!-- bootstrap container, put all visible elements in here and use the grid system to align everything -->
-        <div class="container">
-            <div class="row">
-                <p class="title">WeatherWear</p>
-            </div>
-            <div class="row">
-                <p class="authors">Created By Tim Rolshud, David Lee, Nico Kichukov</p>
-            </div>
-            <form action="/city" method="POST">
-                <div class="row">
-                    <div class="col-9">
+        <div id="page-container">
+            <!-- WeatherWear title -->
+            <div id="title">WeatherWear</div>
+            <!-- search bar -->
+            <div id="center-container">
+                <form action="/city" method="POST">
+                    <div id="search-container">
+                        <!-- TODO style the textbox and the search button they look terrible as of right now -->
                         <input
                             class="form-control"
                             placeholder="Enter City Name (Ex: New York, NY, US)"
                             name="cityName"
                         />
+
+                        <input type="submit" value="Search" />
                     </div>
-                    <input type="submit" class="btn btn-primary col-3" value="Search" />
-                </div>
-            </form>
+                </form>
+            </div>
+            <!-- footer -->
+            <div id="footer-container">
+                <div>Created By Tim Rolshud, David Lee, Nico Kichukov, 2022 Congressional App Challenge</div>
+            </div>
         </div>
-        <!-- bootstrap js stuff  -->
-        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

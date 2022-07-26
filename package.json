@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "dev": "nodemon --exec ts-node src/app.ts"
+        "start": "nodemon build/app.js",
+        "tsc": "tsc -w"
     },
     "license": "ISC",
     "dependencies": {
