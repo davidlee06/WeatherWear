@@ -5,4 +5,5 @@ node_modules/
 # remove this later when we integrate with the database
 public/images/generatedOutfits
 dist/
+build/
 todo.txt

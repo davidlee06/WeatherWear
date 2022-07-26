@@ -10,9 +10,9 @@ const fs = require("fs");
 const jimp = require("jimp");
 
 let imageId = -1;
-const oldFiles = fs.readdirSync("public/images/generatedOutfits");
+const oldFiles = fs.readdirSync("static/images/generatedOutfits");
 for (file in oldFiles) {
-    fs.unlinkSync(`public/images/generatedOutfits/${oldFiles[file]}`);
+    fs.unlinkSync(`static/images/generatedOutfits/${oldFiles[file]}`);
 }
 
 app.use("/bootstrap", express.static(`${__dirname}/node_modules/bootstrap`));
@@ -77,7 +77,7 @@ loadImages();
 app.use(logger("dev"));
 
 // public folder will have all javascripts htmls and css that our page will render
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/static"));
 app.set("views", __dirname + "/ssr");
 app.set("view engine", "ejs");
 
@@ -243,7 +243,7 @@ async function generateOutfit(temperature, callback) {
         );
     }
     imageId++;
-    stickFigure.write(`public/images/generatedOutfits/${imageId}.png`);
+    stickFigure.write(`static/images/generatedOutfits/${imageId}.png`);
     callback();
 }
 
@@ -256,6 +256,10 @@ app.post("/outfit", (req, res) => {
             imageURL: `/images/generatedOutfits/${imageId}.png`
         });
     });
+});
+
+app.get("/locker", (req, res) => {
+    res.render("locker");
 });
 
 // start server and have it listen to the part
