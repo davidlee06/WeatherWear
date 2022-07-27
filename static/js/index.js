@@ -7,16 +7,18 @@ function callback() {
         document.getElementById("hidden-form").submit();
     } else {
         alert(
-            "You have your location incorrectly. Please use the following format: City, State Code. As of right now, only US cities are supported."
+            "You have your location incorrectly. Please use the following format: City, State Code. As of right " +
+                "now, only US cities are supported."
         );
     }
 }
 
+// add listener for enter in the textbox
 document.getElementById("textbox").addEventListener("keydown", (event) => {
     if (event.code === "Enter") {
         callback();
     }
-    return;
 });
 
+// add listener for the button click
 document.getElementById("search-button").addEventListener("click", callback);
