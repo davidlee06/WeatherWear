@@ -7,7 +7,7 @@ export {};
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
-            apiKey: string;
+            APIKEY: string;
             PORT: number;
             DEBUG: boolean;
         }

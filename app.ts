@@ -45,55 +45,60 @@ if (fs.existsSync("./static/images/generatedOutfits")) {
 route for when the city name is submitted. Find the city's coordinates, then lookup the weather for those 
 coordinates, then render the page with those coordinates 
 */
-// app.post("/city", (request: express.Request, response: express.Response) => {
-//     let stringArray = request.body.cityName.split(", ");
-//     // check to see that only two arguments are provided. A city name
-//     if (stringArray.length !== 2 || stringArray[1].length !== 2) {
-//         response.statusCode = 404;
-//         response.send("invalid city type specified");
-//     }
-//     axios
-//         .get(
-//             `http://api.openweathermap.org/geo/1.0/direct?q=${stringArray[0]},${stringArray[1]},${stringArray[2]}&limit=1&appid=${apiKey}`
-//         )
-//         .then((response) => {
-//             response.data[0];
-//             axios
-//                 .get(
-//                     `http://api.openweathermap.org/data/2.5/forecast?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${apiKey}`
-//                 )
-//                 .then((otherResponse) => {
-//                     otherResponse = otherResponse.data;
-//                     let newObject = {cityName: request.body.cityName, array: []};
-//                     for (let i = 0; i < otherResponse.list.length; ) {
-//                         let tempTemps = [];
-//                         let hoursPassed = 0;
-//                         let tempDateString = new Date(otherResponse.list[i].dt * 1000).toDateString();
-//                         hoursPassed = new Date(otherResponse.list[i].dt * 1000).getHours();
-//                         while (hoursPassed < 24 && i < otherResponse.list.length) {
-//                             tempTemps.push(otherResponse.list[i].main.temp);
-//                             ++i;
-//                             hoursPassed += 3;
-//                         }
-//                         // sort array, first one will be the smallest temp, other one will be the largest temp
-//                         tempTemps.sort((a, b) => {
-//                             if (a < b) {
-//                                 return -1;
-//                             }
-//                             if (a > b) {
-//                                 return 1;
-//                             }
-//                             return 0;
-//                         });
-//                         newObject.array.push([tempDateString, tempTemps[0], tempTemps[tempTemps.length - 1]]);
-//                     }
-//                     response.render("city", newObject);
-//                 });
-//         });
-// });
-
 app.post("/city", (request: express.Request, response: express.Response) => {
-    response.send(request.body);
+    // check to make sure that object has two fields, city and state, and that state is formatted correctly
+    if (!("city" in request.body && "state" in request.body && request.body["state"].length === 2)) {
+        response.statusCode = 400;
+        response.send(
+            "An incorrect object has been sent. Make sure you send an object containing a city key, and a state key," +
+                "with the state key being length 2. The object you sent was " +
+                JSON.stringify(request.body)
+        );
+        return;
+    }
+    // make request to turn location name into location coordinates
+    axios
+        .get(
+            `http://api.openweathermap.org/geo/1.0/direct?q=${request.body.city},${request.body.state},US&limit=1&appid=${process.env.APIKEY}`
+        )
+        .then((responseOne) => {
+            responseOne.data[0];
+            // make request to get weather data from location coordinates
+            axios
+                .get(
+                    `http://api.openweathermap.org/data/2.5/forecast?lat=${responseOne.data[0].lat}&lon=${responseOne.data[0].lon}&appid=${process.env.APIKEY}`
+                )
+                .then((responseTwo) => {
+                    // create new object that we'll use to server side render the html
+                    let newObject: {cityName: string; array: any[]} = {
+                        cityName: `${request.body.city}, ${request.body.state}`,
+                        array: []
+                    };
+                    for (let i = 0; i < responseTwo.data.list.length; ) {
+                        let tempTemps = [];
+                        let hoursPassed = 0;
+                        let tempDateString = new Date(responseTwo.data.list[i].dt * 1000).toDateString();
+                        hoursPassed = new Date(responseTwo.data.list[i].dt * 1000).getHours();
+                        while (hoursPassed < 24 && i < responseTwo.data.list.length) {
+                            tempTemps.push(responseTwo.data.list[i].main.temp);
+                            ++i;
+                            hoursPassed += 3;
+                        }
+                        // sort array, first one will be the smallest temp, other one will be the largest temp
+                        tempTemps.sort((a, b) => {
+                            if (a < b) {
+                                return -1;
+                            }
+                            if (a > b) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        newObject.array.push([tempDateString, tempTemps[0], tempTemps[tempTemps.length - 1]]);
+                    }
+                    response.render("city", newObject);
+                });
+        });
 });
 // start server and have it listen to the part
 app.listen(process.env.PORT, () => {
