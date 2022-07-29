@@ -3,6 +3,7 @@ import {requiresAuth} from "express-openid-connect";
 import server from "./ExpressConfig";
 import express from "express";
 import axios from "axios";
+import databasePool from "./DatabasePool";
 
 /* 
 route for when the city name is submitted. Find the city's coordinates, then lookup the weather for those 
@@ -70,17 +71,36 @@ server.post("/weather", (request: express.Request, response: express.Response) =
 // }
 
 server.get("/", (request: express.Request, response: express.Response) => {
-    // const ssr: indexReponsse = {
-    //     imageURL: ""
-    // };
-    // if the user is authenticated
+    checkUser(request.oidc.user);
     if (request.oidc.isAuthenticated()) {
-        response.send(JSON.stringify(request.oidc.user));
-    } else {
-        response.send("you are not singed in.");
+        response.render("index", {
+            buttonText: `Welcome ${request.oidc.user["name"]}, view your locker.`,
+            signedIn: true
+        });
+    }
+    response.render("index", {buttonText: "Sign in/Sign up", signedIn: false});
+});
+
+server.get("/locker", requiresAuth(), (request: express.Request, response: express.Response) => {
+    // go back to home page if user isn't logged in
+    if (!request.oidc.isAuthenticated()) {
+        response.redirect("/");
     }
 });
 
 server.get("/profile", requiresAuth(), (request: express.Request, response: express.Response) => {
-    response.send(JSON.stringify(request.oidc));
+    response.send(JSON.stringify(request.oidc.user));
 });
+
+server.post("/callback", (req, res) => {
+    console.log(req.body);
+    res.send("Ok");
+});
+
+// TODO continue from here add the database stuff
+function checkUser(user): void {
+    console.log(`select * from weatherwear.user where weatherwear.user.id = ${user.sub};`)
+    databasePool.query(`select * from weatherwear.user where weatherwear.user.id = ${user.sub};`).then((response) => {
+        console.log(response);
+    });
+}
