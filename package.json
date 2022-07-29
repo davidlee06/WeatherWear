@@ -1,7 +1,8 @@
 {
     "scripts": {
         "start": "nodemon build/LaunchServer.js",
-        "tsc": "tsc -w"
+        "watch": "tsc -w",
+        "build": "tsc"
     },
     "license": "ISC",
     "dependencies": {
