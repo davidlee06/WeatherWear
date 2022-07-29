@@ -7,7 +7,7 @@
         <!-- bootstrap css stuff -->
         <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <!-- css for this page -->
-        <link href="/css/city.css" rel="stylesheet" />
+        <link href="/css/weather.css" rel="stylesheet" />
         <!-- browser compatibility -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />
@@ -26,14 +26,8 @@
                     °C
                 </button>
             </div>
-
-            <div class="row">
-                <p class="title">WeatherWear</p>
-            </div>
-
-            <div class="row">
-                <p class="cityName"><%= cityName %></p>
-            </div>
+            <div id="title">WeatherWear</div>
+            <div id="city-name-text"><%= cityName %></div>
 
             <!-- make a table for the weatehr and stuff  -->
             <table class="table">
@@ -68,6 +62,6 @@
         </div>
         <!-- bootstrap js stuff  -->
         <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/city.js"></script>
+        <script src="/js/weather.js"></script>
     </body>
 </html>

@@ -18,34 +18,19 @@ body {
 }
 
 #footer-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
     color: black;
     text-align: center;
     font-family: "Open Sans", sans-serif;
     font-style: italic;
-}
-#footer-container div {
-    background-color: #8c8c8c;
-    width: 100%;
-    text-align: center;
-}
-/* 97 is the safe zone just in case */
-#page-container {
+    font-size: 20px;
     width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: repeat(3, minmax(0, 1fr));
+    position: absolute;
+    bottom: 0;
 }
 
-#center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#search-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    width: 90vw;
+#city-name-text {
+    font-size: 85px;
+    font-family: "Bebas Neue";
+    text-align: center;
+    color: rgb(20, 70, 240);
 }

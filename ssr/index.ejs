@@ -4,14 +4,22 @@
         <title>WeatherWear</title>
         <!-- add here in case browser doesn't make automatic request for favicon -->
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <!-- css for this page -->
-        <link href="/css/index.css" rel="stylesheet" />
+
         <!-- compatibility for browsers -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />
+        <!-- bootstrap css -->
+        <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- css for this page -->
+        <link href="/css/index.css" rel="stylesheet" />
     </head>
     <body>
+       
         <div id="page-container">
+            <!-- TODO fix css for this -->
+            <button>
+                Login
+            </button>
             <!-- WeatherWear title -->
             <div id="title">WeatherWear</div>
             <!-- search bar -->
@@ -23,21 +31,26 @@
                         type="text"
                         placeholder="Enter City Name (Ex: New York, NY)"
                         name="rawText"
-                        id="rawTextInput"
+                        class="form-control"
                     />
-                    <button type="button" id="search-button">Search</button>
+                    <button type="button" id="search-button" class="btn btn-primary">Search</button>
                 </div>
             </div>
+            <!-- sign in button -->
+            
             <!-- footer -->
             <div id="footer-container">
-                <div>Created By Tim Rolshud, David Lee, Nico Kichukov, 2022 Congressional App Challenge</div>
+                Created By Tim Rolshud, David Lee, Nico Kichukov, 2022 Congressional App Challenge
             </div>
         </div>
         <script src="/js/index.js"></script>
         <!-- invisible form -->
-        <form id="hidden-form" action="/city" method="POST">
+        <form id="hidden-form" action="/weather" method="POST">
             <input id="city" type="hidden" name="city" value="n/a" />
             <input id="state" type="hidden" name="state" value="n/a" />
         </form>
+        <
+        <!-- bootstrap js -->
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

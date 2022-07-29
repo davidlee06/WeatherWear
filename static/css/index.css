@@ -4,8 +4,7 @@
 
 #title {
     text-align: center;
-    font-size: 100px;
-    line-height: 100px;
+    font-size: min(100px, 20vw);
     font-family: "Bebas Neue";
     color: rgb(26, 226, 240);
 }
@@ -25,11 +24,9 @@ body {
     text-align: center;
     font-family: "Open Sans", sans-serif;
     font-style: italic;
+    font-size: min(2.5vw, 20px);
 }
-#footer-container div {
-    background-color: #8c8c8c;
-    width: 100%;
-}
+
 /* 97 is the safe zone just in case */
 #page-container {
     width: 100vw;
