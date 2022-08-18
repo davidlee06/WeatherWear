@@ -18,12 +18,7 @@ function flipUnits() {
 
     if (document.getElementById("tempUnits").innerHTML.includes("C")) {
         for (let i = 0; i < tableCols.length; ++i) {
-            let tempTemp = parseInt(
-                tableCols[i].innerHTML.substring(
-                    0,
-                    tableCols[i].innerHTML.length - 2
-                )
-            );
+            let tempTemp = parseInt(tableCols[i].innerHTML.substring(0, tableCols[i].innerHTML.length - 2));
             tableCols[i].innerHTML = parseInt((tempTemp * 9) / 5 + 32) + "°F";
         }
         document.getElementById("tempUnits").innerHTML = "°F";
@@ -32,16 +27,10 @@ function flipUnits() {
     // otherwise, flip everything to C
     else {
         for (let i = 0; i < tableCols.length; ++i) {
-            let tempTemp = parseInt(
-                tableCols[i].innerHTML.substring(
-                    0,
-                    tableCols[i].innerHTML.length - 2
-                )
-            );
+            let tempTemp = parseInt(tableCols[i].innerHTML.substring(0, tableCols[i].innerHTML.length - 2));
             tableCols[i].innerHTML = parseInt(((tempTemp - 32) * 5) / 9) + "°C";
         }
         document.getElementById("tempUnits").innerHTML = "°C";
-        document.getElementById("tempUnits").style =
-            "background-color: rebeccapurple;";
+        document.getElementById("tempUnits").style = "background-color: rebeccapurple;";
     }
 }

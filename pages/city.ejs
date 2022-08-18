@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <title>Weather Wear - <%= cityName %></title>
         <!-- bootstrap css stuff -->
         <link
@@ -19,13 +19,7 @@
     <body>
         <div class="container-fluid">
             <div class="row align-items-center">
-                <button
-                    type="button"
-                    class="btn btn-primary col"
-                    onclick="goBack()"
-                >
-                    Return Home
-                </button>
+                <button type="button" class="btn btn-primary col" onclick="goBack()">Return Home</button>
                 <button
                     type="button"
                     class="btn btn-primary col"
@@ -68,11 +62,7 @@
                                     name="temp"
                                     value="<%=parseInt((array[i][2] + array[i][1] - 2 * 273.15) / 2) %>"
                                 />
-                                <input
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    value="View Outfit"
-                                />
+                                <input type="submit" class="btn btn-primary" value="View Outfit" />
                             </form>
                         </td>
                     </tr>
@@ -86,6 +76,6 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"
         ></script>
-        <script src="/javascripts/city.js"></script>
+        <script src="/js/city.js"></script>
     </body>
 </html>

@@ -3,10 +3,7 @@ function flipUnits() {
     let tempHTML = document.getElementById("flipUnits");
     let flipButton = document.getElementById("flipButton");
     let units = tempHTML.innerHTML.substring(tempHTML.innerHTML.length - 1);
-    let currentTemp = tempHTML.innerHTML.substring(
-        0,
-        tempHTML.innerHTML.length - 2
-    );
+    let currentTemp = tempHTML.innerHTML.substring(0, tempHTML.innerHTML.length - 2);
     if (units === "C") {
         currentTemp = (currentTemp * 9) / 5 + 32;
         tempHTML.innerHTML = "" + parseInt(currentTemp) + "°F";
