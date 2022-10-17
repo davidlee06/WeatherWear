@@ -9,19 +9,19 @@ require("dotenv").config();
 
 // check that all env variables are there
 if (
-    !(
-        process.env.DEV &&
-        process.env.PORT &&
-        process.env.GOOGLE_CLIENT_ID &&
-        process.env.GOOGLE_CLIENT_SECRET &&
-        process.env.APIKEY &&
-        process.env.PGUSER &&
-        process.env.PGHOST &&
-        process.env.PGDATABASE &&
-        process.env.PGPASSWORD &&
-        process.env.PGPORT
-    )
+    process.env.DEV &&
+    process.env.PORT &&
+    process.env.GOOGLE_CLIENT_ID &&
+    process.env.GOOGLE_CLIENT_SECRET &&
+    process.env.APIKEY &&
+    process.env.PGUSER &&
+    process.env.PGHOST &&
+    process.env.PGDATABASE &&
+    process.env.PGPASSWORD &&
+    process.env.PGPORT
 ) {
+    console.log("All enviornment variables loaded, checking connection with database...");
+} else {
     console.log(
         "Not all enviornment variables have been properly declared. Create a .env file and make sure its format " +
             "matches the one on the readme and it includes all of the necessary fields.  "
