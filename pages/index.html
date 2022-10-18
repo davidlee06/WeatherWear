@@ -2,8 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>WeatherWear</title>
     </head>
     <body>
@@ -11,12 +9,7 @@
         <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
         <input type="text" id="city_search" placeholder="enter city name" />
         <div id="city_list_root"></div>
-
-        <form id = "form" method="post" action="/city">
-            <input type="hidden" name="lat" id="lat" />
-            <input type="hidden" name="lon" id="lon" />
-        </form>
-        <button>Use my location</button>
+        <button id="use_location_button">Use my location</button>
         <!-- javascript for this page -->
         <script src="/js/index.js"></script>
     </body>

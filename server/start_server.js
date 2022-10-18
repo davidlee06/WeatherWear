@@ -5,7 +5,6 @@ const axios = require("axios");
 function error() {
     console.log("Issue with Weather API, unable to start server.");
     process.exit(1);
-    return;
 }
 
 // test database connection, stop the process if you cannot connect to the database
@@ -16,7 +15,7 @@ db.query("select 1 * 1;")
             .get("https://api.weather.gov")
             .then(({status}) => {
                 if (status === 200) {
-                    console.log("Weather API online, checking if Geocoding weather api is online...");
+                    console.log("Coordinate weather api online, checking if Geocoding weather api is online...");
                     axios
                         .get("https://api.weatherapi.com/")
                         .then(({status}) => {
@@ -24,7 +23,8 @@ db.query("select 1 * 1;")
                                 console.log("Geocoding api online, starting server...");
                                 server.listen(process.env.PORT, () => {
                                     console.log(
-                                        `Server sucessfully launched on port ${process.env.PORT}. Go to http://localhost:${process.env.PORT}`
+                                        `Server sucessfully launched on port ${process.env.PORT}. Go to ` +
+                                            `http://localhost:${process.env.PORT}`
                                     );
                                 });
                             } else {

@@ -12,5 +12,6 @@ Run these commands from the db folder inside of this project
 -   docker exec weatherwear-db-container psql -d postgres -f /script/init_db.sql;
 
 **TODO:**
-- Style the homepage
-- Add sign in with google to the homepage
+
+-   Style the homepage
+-   Add sign in with google button to the homepage
