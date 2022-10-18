@@ -48,6 +48,6 @@ document.getElementById("use_location_button").addEventListener("click", () => {
     navigator.geolocation.getCurrentPosition((position) => {
         let latData = position.coords.latitude;
         let lonData = position.coords.longitude;
-        submitInfo(latData, lonData, "My Location");
+        submitInfo(latData, lonData, "location");
     });
 });

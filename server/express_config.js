@@ -12,7 +12,6 @@ if (
     process.env.PORT &&
     process.env.GOOGLE_CLIENT_ID &&
     process.env.GOOGLE_CLIENT_SECRET &&
-    process.env.APIKEY &&
     process.env.PGUSER &&
     process.env.PGHOST &&
     process.env.PGDATABASE &&
