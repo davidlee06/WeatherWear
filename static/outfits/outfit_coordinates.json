@@ -1,0 +1,450 @@
+{
+    "_0C": {
+        "head": [
+            {
+                "x": 201,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 202,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 189,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 212,
+                "y": 0,
+                "image": null
+            }
+        ],
+        "torso": [
+            {
+                "x": -15,
+                "y": 430,
+                "image": null
+            },
+            {
+                "x": 35,
+                "y": 480,
+                "image": null
+            },
+            {
+                "x": -21,
+                "y": 470,
+                "image": null
+            },
+            {
+                "x": 57,
+                "y": 467,
+                "image": null
+            }
+        ],
+        "legs": [
+            {
+                "x": 224,
+                "y": 746,
+                "image": null
+            },
+            {
+                "x": 242,
+                "y": 746,
+                "image": null
+            },
+            {
+                "x": 254,
+                "y": 750,
+                "image": null
+            },
+            {
+                "x": 210,
+                "y": 750,
+                "image": null
+            }
+        ],
+        "feet": [
+            {
+                "x": 383,
+                "y": 838,
+                "image": null
+            },
+            {
+                "x": 433,
+                "y": 952,
+                "image": null
+            },
+            {
+                "x": 400,
+                "y": 940,
+                "image": null
+            },
+            {
+                "x": 410,
+                "y": 947,
+                "image": null
+            }
+        ],
+        "feetFlipped": [
+            {
+                "x": -26,
+                "y": 838,
+                "image": null
+            },
+            {
+                "x": 21,
+                "y": 952,
+                "image": null
+            },
+            {
+                "x": 7,
+                "y": 940,
+                "image": null
+            },
+            {
+                "x": -20,
+                "y": 947,
+                "image": null
+            }
+        ]
+    },
+    "0-10C": {
+        "head": [
+            {
+                "x": 201,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 202,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 189,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 212,
+                "y": 0,
+                "image": null
+            }
+        ],
+        "torso": [
+            {
+                "x": 50,
+                "y": 462,
+                "image": null
+            },
+            {
+                "x": 13,
+                "y": 468,
+                "image": null
+            },
+            {
+                "x": 28,
+                "y": 472,
+                "image": null
+            },
+            {
+                "x": 75,
+                "y": 480,
+                "image": null
+            }
+        ],
+        "legs": [
+            {
+                "x": 250,
+                "y": 754,
+                "image": null
+            },
+            {
+                "x": 243,
+                "y": 747,
+                "image": null
+            },
+            {
+                "x": 250,
+                "y": 755,
+                "image": null
+            },
+            {
+                "x": 256,
+                "y": 753,
+                "image": null
+            }
+        ],
+        "feet": [
+            {
+                "x": 440,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 440,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 380,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 436,
+                "y": 944,
+                "image": null
+            }
+        ],
+        "feetFlipped": [
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 944,
+                "image": null
+            }
+        ]
+    },
+    "10-20C": {
+        "head": [
+            {
+                "x": 247,
+                "y": 37,
+                "image": null
+            },
+            {
+                "x": 218,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 209,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 213,
+                "y": 0,
+                "image": null
+            }
+        ],
+        "torso": [
+            {
+                "x": 109,
+                "y": 457,
+                "image": null
+            },
+            {
+                "x": 109,
+                "y": 457,
+                "image": null
+            },
+            {
+                "x": 108,
+                "y": 476,
+                "image": null
+            },
+            {
+                "x": 48,
+                "y": 477,
+                "image": null
+            }
+        ],
+        "legs": [
+            {
+                "x": 250,
+                "y": 754,
+                "image": null
+            },
+            {
+                "x": 243,
+                "y": 747,
+                "image": null
+            },
+            {
+                "x": 250,
+                "y": 755,
+                "image": null
+            },
+            {
+                "x": 256,
+                "y": 753,
+                "image": null
+            }
+        ],
+        "feet": [
+            {
+                "x": 440,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 440,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 380,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 436,
+                "y": 944,
+                "image": null
+            }
+        ],
+        "feetFlipped": [
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 944,
+                "image": null
+            }
+        ]
+    },
+    "20C+": {
+        "head": [
+            {
+                "x": 247,
+                "y": 37,
+                "image": null
+            },
+            {
+                "x": 218,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 209,
+                "y": 0,
+                "image": null
+            },
+            {
+                "x": 213,
+                "y": 0,
+                "image": null
+            }
+        ],
+        "torso": [
+            {
+                "x": 109,
+                "y": 457,
+                "image": null
+            },
+            {
+                "x": 109,
+                "y": 457,
+                "image": null
+            },
+            {
+                "x": 108,
+                "y": 476,
+                "image": null
+            },
+            {
+                "x": 48,
+                "y": 477,
+                "image": null
+            }
+        ],
+        "legs": [
+            {
+                "x": 242,
+                "y": 748,
+                "image": null
+            },
+            {
+                "x": 233,
+                "y": 752,
+                "image": null
+            },
+            {
+                "x": 270,
+                "y": 755,
+                "image": null
+            },
+            {
+                "x": 254,
+                "y": 744,
+                "image": null
+            }
+        ],
+        "feet": [
+            {
+                "x": 440,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 440,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 380,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 436,
+                "y": 944,
+                "image": null
+            }
+        ],
+        "feetFlipped": [
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 970,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 930,
+                "image": null
+            },
+            {
+                "x": 0,
+                "y": 944,
+                "image": null
+            }
+        ]
+    }
+}

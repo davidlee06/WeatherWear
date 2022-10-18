@@ -1,10 +1,4 @@
 node_modules/
 .vscode/
 .idea/
-*.xml
-*.iml
-out/
 .env
-temp.js
-temp.json
-public/images/generatedOutfits
