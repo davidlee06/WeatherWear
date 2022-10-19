@@ -18,7 +18,7 @@ async function loadImages() {
             }
         }
     }
-    console.log("all images have been loaded.")
+    console.log("all images have been loaded.");
 }
 
 loadImages();

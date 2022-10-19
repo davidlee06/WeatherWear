@@ -56,9 +56,9 @@ if (
             }
 
             for (let a = 0; a < weatherData.length; ++a) {
-                forecast_root.innerHTML += `<div>Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${
-                    weatherData[a].low
-                }, High: ${
+                forecast_root.innerHTML += `<div class = "date_weather_div">Date: ${new Date(
+                    weatherData[a].unix * 1000
+                ).toDateString()}, Low: ${weatherData[a].low}, High: ${
                     weatherData[a].high
                 }</div><button class = "date_weather_rows">Click to generate outfit</button>`;
             }
@@ -80,8 +80,8 @@ if (
             }
         });
     });
-    const custom_temp = document.getElementById("custom_temp")
-    const custom_button = document.getElementById("custom_button")
+    const custom_temp = document.getElementById("custom_temp");
+    const custom_button = document.getElementById("custom_button");
     custom_button.addEventListener("click", () => {
         fetch("/api/new-image", {
             method: "POST",
@@ -94,6 +94,36 @@ if (
                 image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
             });
         });
-    })
-
+    });
 }
+function convertUnits(temp, unit) {
+    if (unit === "C") {
+        return `${Math.round(temp - 273.15)}°C`;
+    } else if (unit === "F") {
+        return `${Math.round(1.8 * (temp - 273) + 32)}°F`;
+    } else {
+        return `${temp}°K`;
+    }
+}
+
+function updateUnits(unit) {
+    const date_rows = document.getElementsByClassName("date_weather_div");
+    for (let a = 0; a < date_rows.length; ++a) {
+        date_rows[a].innerHTML = `Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${convertUnits(
+            weatherData[a].low,
+            unit
+        )}, High: ${convertUnits(weatherData[a].high, unit)}</div>`;
+    }
+}
+
+document.getElementById("cel_button").addEventListener("click", () => {
+    updateUnits("C");
+});
+
+document.getElementById("far_button").addEventListener("click", () => {
+    updateUnits("F");
+});
+
+document.getElementById("kel_button").addEventListener("click", () => {
+    updateUnits("K");
+});

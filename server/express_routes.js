@@ -3,13 +3,14 @@ const server = require("./express_config");
 const root_path = require("./root_path");
 const outfits = require("./jimp_init");
 const jimp = require("jimp");
+const google = require("./google_auth");
 let baseImage;
 jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
     baseImage = image;
 });
 
 server.get("/", (request, response) => {
-    response.sendFile(`${root_path}/pages/index.html`);
+    // user is signed in if they 
 });
 
 server.get("/city", (request, response) => {
@@ -37,7 +38,6 @@ server.post("/api/new-image", (request, response) => {
         } else {
             section = "20C+";
         }
-        console.log(`Generating image with category ${section}`)
         const head = outfits[section]["head"][Math.floor(Math.random() * outfits[section]["head"].length)];
         const torso = outfits[section]["torso"][Math.floor(Math.random() * outfits[section]["torso"].length)];
         const legs = outfits[section]["legs"][Math.floor(Math.random() * outfits[section]["legs"].length)];
@@ -79,7 +79,6 @@ server.get("/api/get-image", (request, response) => {
         db.query("select image from weatherwear.outfit where id = $1;", [request.query.image_id])
             .then(({rows}) => {
                 response.write(rows[0].image, () => {
-                    console.log("sucess");
                     response.end();
                 });
             })
@@ -89,6 +88,20 @@ server.get("/api/get-image", (request, response) => {
                 response.end();
                 console.log(error);
             });
+    }
+});
+
+/*
+Google authentication route
+*/
+server.post("/auth/google", (request, response) => {
+    // check that credential is provided in request
+    if (!request.body.credential) {
+        response.statusCode = 400;
+        response.send("A google credential JWT must be sent.");
+    } else {
+        response.cookie("token", request.body.credential);
+        response.redirect("/");
     }
 });
 
