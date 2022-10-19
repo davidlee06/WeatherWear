@@ -1,5 +1,6 @@
 const city_name = document.getElementById("city_name");
 const forecast_root = document.getElementById("forecast_root");
+const image_root = document.getElementById("image_root");
 let weatherData = [];
 
 // check to make sure that local storage has both lat and lon property before making any requests
@@ -57,8 +58,42 @@ if (
             for (let a = 0; a < weatherData.length; ++a) {
                 forecast_root.innerHTML += `<div>Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${
                     weatherData[a].low
-                }, High: ${weatherData[a].high}</div>`;
+                }, High: ${
+                    weatherData[a].high
+                }</div><button class = "date_weather_rows">Click to generate outfit</button>`;
+            }
+            const date_rows = document.getElementsByClassName("date_weather_rows");
+            for (let a = 0; a < date_rows.length; ++a) {
+                date_rows[a].addEventListener("click", () => {
+                    fetch("/api/new-image", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({temp: (Number(weatherData[a].high) + Number(weatherData[a].low)) / 2})
+                    }).then((fetchResponse) => {
+                        fetchResponse.json().then(({image_id}) => {
+                            image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
+                        });
+                    });
+                });
             }
         });
     });
+    const custom_temp = document.getElementById("custom_temp")
+    const custom_button = document.getElementById("custom_button")
+    custom_button.addEventListener("click", () => {
+        fetch("/api/new-image", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({temp: Number(custom_temp.value)})
+        }).then((fetchResponse) => {
+            fetchResponse.json().then(({image_id}) => {
+                image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
+            });
+        });
+    })
+
 }
