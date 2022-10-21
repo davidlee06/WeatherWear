@@ -9,22 +9,6 @@ jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
     baseImage = image;
 });
 
-server.get("/", (request, response) => {
-    // user is signed in if they send a token cookie with their request
-    // if user is signed in, send them to index-signed-in page
-    if (request.cookies.token) {
-        response.sendFile(`${root_path}/pages/index-signed-in.html`);
-    }
-    // otherwise, put them on standard index page with no sign in
-    else {
-        response.sendFile(`${root_path}/pages/index.html`);
-    }
-});
-
-server.get("/city", (request, response) => {
-    response.sendFile(`${root_path}/pages/city.html`);
-});
-
 /*
 Post here to generate new image, you give it temp in Kelvin, api responds, with id of image to then hit get-image from
 */
@@ -102,7 +86,7 @@ server.get("/api/get-image", (request, response) => {
 /*
 Google authentication route
 */
-server.post("/auth/google", (request, response) => {
+server.post("/api/auth/google", (request, response) => {
     // check that credential is provided in request
     if (!request.body.credential) {
         response.statusCode = 400;
@@ -115,7 +99,7 @@ server.post("/auth/google", (request, response) => {
 
 server.get("/api/locker-image-info", (request, response) => {
     if (!request.cookies.token) {
-        resonse.statusCode = 400;
+        response.statusCode = 400;
         response.send("No cookie sent");
     } else {
         // verify google token
@@ -136,18 +120,69 @@ server.get("/api/locker-image-info", (request, response) => {
             })
             .catch(() => {
                 response.statusCode = 401;
-                response.clearCookie("token")
+                response.clearCookie("token");
                 response.send("Invalid google auth token");
             });
     }
 });
 
-server.get("/locker", (request, response) => {
-    // if user is not signed in, bring them back to home page
-    if (!request.cookies.token) {
-        response.redirect("/");
+server.post("/api/remove-locker-outfit", (request, response) => {
+    if (!(request.cookies.token && request.body.image_id)) {
+        response.statusCode = 400;
+        response.send("Send a cookie with token and a request body with image_id");
     } else {
-        response.sendFile(`${root_path}/pages/locker.html`);
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("delete from weatherwear.outfit where user_id = $1 and id = $2;", [
+                    user.sub,
+                    request.body.image_id
+                ])
+                    .then(() => {
+                        response.statusCode = 200;
+                        response.send("Removed from locker");
+                    })
+                    .catch((error) => {
+                        response.statusCode = 500;
+                        response.send("database issue");
+                        console.log(error);
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.clearCookie("token");
+                response.send("Invalid google auth token");
+            });
     }
 });
+
+server.post("/api/add-locker-outfit", (request, response) => {
+    if (!(request.cookies.token && request.body.image_id)) {
+        response.statusCode = 400;
+        response.send("Send a cookie with token and a request body with image_id");
+    } else {
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("update weatherwear.outfit set user_id = $1 where id = $2;", [user.sub, request.body.image_id])
+                    .then(() => {
+                        response.statusCode = 200;
+                        response.send("Added to locker");
+                    })
+                    .catch((error) => {
+                        response.statusCode = 500;
+                        response.send("database issue");
+                        console.log(error);
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.clearCookie("token");
+                response.send("Invalid google auth token");
+            });
+    }
+});
+
 module.exports = server;

@@ -1,8 +1,7 @@
 const city_name = document.getElementById("city_name");
 const forecast_root = document.getElementById("forecast_root");
 const image_root = document.getElementById("image_root");
-const add_locker_button = document.getElementById("add_locker_button")
-let add_visible = false;
+const add_locker_button = document.getElementById("add_locker_button");
 let weatherData = [];
 let currentImageID;
 
@@ -14,8 +13,8 @@ if (
 ) {
     localStorage.clear();
     alert(
-        "Unable to load the latitude, longituide, and city specified. You will be returned to the homepage to re-enter " +
-            "your info. Sorry"
+        "Unable to load the latitude, longituide, and city specified. You will be returned to the homepage to " +
+            "re-enter your info. Sorry"
     );
     window.location.href = "/";
 } else {
@@ -77,6 +76,11 @@ if (
                     }).then((fetchResponse) => {
                         fetchResponse.json().then(({image_id}) => {
                             currentImageID = image_id;
+                            // make button visible if not already visible and user is not signed in
+                            if (add_locker_button.hasAttribute("style") === false && jwtObject !== null) {
+                                add_locker_button.removeAttribute("style");
+                                add_visible = true;
+                            }
                             image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
                         });
                     });
@@ -136,7 +140,12 @@ document.getElementById("kel_button").addEventListener("click", () => {
 if (jwtObject !== null) {
     document.getElementById("signed_in_root").removeAttribute("style");
     add_locker_button.addEventListener("click", () => {
-        // make request to backend to add this outfit id to this user
-    })
+        fetch("/api/add-locker-outfit", {
+            credentials: "same-origin",
+            method: "post",
+            body: {image_id: currentImageID}
+        }).then((fetchResponse) => {
+            // todo finish this add feature
+        });
+    });
 }
-
