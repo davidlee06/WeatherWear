@@ -115,14 +115,15 @@ server.post("/auth/google", (request, response) => {
 
 server.get("/api/locker-image-info", (request, response) => {
     if (!request.cookies.token) {
-        response.redirect("/");
+        resonse.statusCode = 400;
+        response.send("No cookie sent");
     } else {
         // verify google token
         google
             .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
             .then((ticket) => {
                 const user = ticket.getPayload();
-                db.query("select id, time_created from weatherwear.image where user_id = $1;", [user.sub])
+                db.query("select id, time_created from weatherwear.outfit where user_id = $1;", [user.sub])
                     .then(({rows}) => {
                         response.statusCode = 200;
                         response.send(rows);
@@ -135,6 +136,7 @@ server.get("/api/locker-image-info", (request, response) => {
             })
             .catch(() => {
                 response.statusCode = 401;
+                response.clearCookie("token")
                 response.send("Invalid google auth token");
             });
     }
@@ -142,7 +144,7 @@ server.get("/api/locker-image-info", (request, response) => {
 
 server.get("/locker", (request, response) => {
     // if user is not signed in, bring them back to home page
-    if (!request.body.credential) {
+    if (!request.cookies.token) {
         response.redirect("/");
     } else {
         response.sendFile(`${root_path}/pages/locker.html`);

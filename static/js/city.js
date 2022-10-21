@@ -1,7 +1,10 @@
 const city_name = document.getElementById("city_name");
 const forecast_root = document.getElementById("forecast_root");
 const image_root = document.getElementById("image_root");
+const add_locker_button = document.getElementById("add_locker_button")
+let add_visible = false;
 let weatherData = [];
+let currentImageID;
 
 // check to make sure that local storage has both lat and lon property before making any requests
 if (
@@ -73,6 +76,7 @@ if (
                         body: JSON.stringify({temp: (Number(weatherData[a].high) + Number(weatherData[a].low)) / 2})
                     }).then((fetchResponse) => {
                         fetchResponse.json().then(({image_id}) => {
+                            currentImageID = image_id;
                             image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
                         });
                     });
@@ -131,4 +135,8 @@ document.getElementById("kel_button").addEventListener("click", () => {
 // make logged in stuff visible if user is signed in
 if (jwtObject !== null) {
     document.getElementById("signed_in_root").removeAttribute("style");
+    add_locker_button.addEventListener("click", () => {
+        // make request to backend to add this outfit id to this user
+    })
 }
+
