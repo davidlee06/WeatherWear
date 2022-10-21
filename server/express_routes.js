@@ -113,4 +113,39 @@ server.post("/auth/google", (request, response) => {
     }
 });
 
+server.get("/api/locker-image-info", (request, response) => {
+    if (!request.cookies.token) {
+        response.redirect("/");
+    } else {
+        // verify google token
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("select id, time_created from weatherwear.image where user_id = $1;", [user.sub])
+                    .then(({rows}) => {
+                        response.statusCode = 200;
+                        response.send(rows);
+                    })
+                    .catch((error) => {
+                        response.statusCode = 500;
+                        response.send("database issue");
+                        console.log(error);
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.send("Invalid google auth token");
+            });
+    }
+});
+
+server.get("/locker", (request, response) => {
+    // if user is not signed in, bring them back to home page
+    if (!request.body.credential) {
+        response.redirect("/");
+    } else {
+        response.sendFile(`${root_path}/pages/locker.html`);
+    }
+});
 module.exports = server;

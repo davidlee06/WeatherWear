@@ -13,5 +13,8 @@ Run these commands from the db folder inside of this project
 
 **TODO:**
 
--   Style the homepage
--   Add sign in with google button to the homepage
+-   Style the homepage city page and locker page
+- add links to all products
+
+- add "add to locker buttton" if user is signed in and on the city page
+

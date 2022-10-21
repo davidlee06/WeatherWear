@@ -10,5 +10,6 @@ create table weatherwear.user (
 create table weatherwear.outfit (
     id serial not null primary key,
     image bytea not null,
-    user_id int8 default -1 not null
+    user_id text default "N/A" not null,
+    time_created timestamp default now()
 );
