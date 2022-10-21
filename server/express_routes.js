@@ -10,7 +10,15 @@ jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
 });
 
 server.get("/", (request, response) => {
-    // user is signed in if they 
+    // user is signed in if they send a token cookie with their request
+    // if user is signed in, send them to index-signed-in page
+    if (request.cookies.token) {
+        response.sendFile(`${root_path}/pages/index-signed-in.html`);
+    }
+    // otherwise, put them on standard index page with no sign in
+    else {
+        response.sendFile(`${root_path}/pages/index.html`);
+    }
 });
 
 server.get("/city", (request, response) => {

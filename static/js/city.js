@@ -127,3 +127,8 @@ document.getElementById("far_button").addEventListener("click", () => {
 document.getElementById("kel_button").addEventListener("click", () => {
     updateUnits("K");
 });
+
+// make logged in stuff visible if user is signed in
+if (jwtObject !== null) {
+    document.getElementById("signed_in_root").removeAttribute("style");
+}

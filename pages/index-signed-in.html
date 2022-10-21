@@ -6,11 +6,16 @@
     </head>
     <body>
         <div>WeatherWear</div>
+        <div id="welcome"></div>
+        <a href="/locker">My Locker</a>
+        <button id="sign_out_button">Sign Out</button>
         <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
         <input type="text" id="city_search" placeholder="enter city name" />
         <div id="city_list_root"></div>
         <button id="use_location_button">Use my location</button>
-        
+
+        <!-- auth script -->
+        <script src="/js/authentication.js"></script>
         <!-- javascript for this page -->
         <script src="/js/index.js"></script>
     </body>

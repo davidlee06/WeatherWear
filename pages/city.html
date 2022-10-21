@@ -6,7 +6,13 @@
     </head>
     <body>
         <div>WeatherWear - City forecast for</div>
-        <div id="city_name"></div>
+        <div id="city_name" ></div>
+        <div id = "signed_in_root" style = "display: none;">
+            <div id="welcome"></div>
+            <a href="/locker">My Locker</a>
+            <button id="sign_out_button">Sign Out</button>
+        </div>
+        <a href="/">Home</a>
         <div id="forecast_root"></div>
         <div>Generate outfit for custom temperature</div>
         <input id="custom_temp" type="number" placeholder="custom temperature" />
@@ -15,6 +21,9 @@
         <button id = "cel_button">Celcius</button>
         <button id = "far_button">Farenheight</buttonid>
         <button id = "kel_button">Kelvin</button>
+        <!-- auth script -->
+        <script src="/js/authentication.js"></script>
+        <!-- js for this page -->
         <script src="/js/city.js"></script>
     </body>
 </html>
