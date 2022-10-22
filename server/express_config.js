@@ -1,3 +1,4 @@
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const server = express();
 // root path of this project
@@ -40,5 +41,8 @@ server.use(express.static(`${rootPath}/static`));
 // json middleware
 server.use(express.urlencoded({extended: false}));
 server.use(express.json());
+
+// cookie parser
+server.use(cookieParser());
 
 module.exports = server;

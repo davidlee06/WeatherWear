@@ -13,5 +13,10 @@ Run these commands from the db folder inside of this project
 
 **TODO:**
 
--   Style the homepage
--   Add sign in with google button to the homepage
+- change add outfit button to "added" and then disabled it when outfit is added but change it back and re-enable it when a new outfit is generated
+-   Style the homepage city page and locker page
+-   add links to all products
+-   add "add to locker buttton" if user is signed in and on the city page
+-   add "remove from locker" button for all outfits in the locker pages
+-   make the app a pwa for mobile
+-   figure out how to do hosting

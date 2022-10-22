@@ -1,7 +1,9 @@
 const city_name = document.getElementById("city_name");
 const forecast_root = document.getElementById("forecast_root");
 const image_root = document.getElementById("image_root");
+const add_locker_button = document.getElementById("add_locker_button");
 let weatherData = [];
+let currentImageID;
 
 // check to make sure that local storage has both lat and lon property before making any requests
 if (
@@ -11,8 +13,8 @@ if (
 ) {
     localStorage.clear();
     alert(
-        "Unable to load the latitude, longituide, and city specified. You will be returned to the homepage to re-enter " +
-            "your info. Sorry"
+        "Unable to load the latitude, longituide, and city specified. You will be returned to the homepage to " +
+            "re-enter your info. Sorry"
     );
     window.location.href = "/";
 } else {
@@ -56,9 +58,9 @@ if (
             }
 
             for (let a = 0; a < weatherData.length; ++a) {
-                forecast_root.innerHTML += `<div>Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${
-                    weatherData[a].low
-                }, High: ${
+                forecast_root.innerHTML += `<div class = "date_weather_div">Date: ${new Date(
+                    weatherData[a].unix * 1000
+                ).toDateString()}, Low: ${weatherData[a].low}, High: ${
                     weatherData[a].high
                 }</div><button class = "date_weather_rows">Click to generate outfit</button>`;
             }
@@ -73,6 +75,12 @@ if (
                         body: JSON.stringify({temp: (Number(weatherData[a].high) + Number(weatherData[a].low)) / 2})
                     }).then((fetchResponse) => {
                         fetchResponse.json().then(({image_id}) => {
+                            currentImageID = image_id;
+                            // make button visible if not already visible and user is not signed in
+                            if (add_locker_button.hasAttribute("style") === false && jwtObject !== null) {
+                                add_locker_button.removeAttribute("style");
+                                add_visible = true;
+                            }
                             image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
                         });
                     });
@@ -80,8 +88,8 @@ if (
             }
         });
     });
-    const custom_temp = document.getElementById("custom_temp")
-    const custom_button = document.getElementById("custom_button")
+    const custom_temp = document.getElementById("custom_temp");
+    const custom_button = document.getElementById("custom_button");
     custom_button.addEventListener("click", () => {
         fetch("/api/new-image", {
             method: "POST",
@@ -94,6 +102,50 @@ if (
                 image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
             });
         });
-    })
+    });
+}
+function convertUnits(temp, unit) {
+    if (unit === "C") {
+        return `${Math.round(temp - 273.15)}°C`;
+    } else if (unit === "F") {
+        return `${Math.round(1.8 * (temp - 273) + 32)}°F`;
+    } else {
+        return `${temp}°K`;
+    }
+}
 
+function updateUnits(unit) {
+    const date_rows = document.getElementsByClassName("date_weather_div");
+    for (let a = 0; a < date_rows.length; ++a) {
+        date_rows[a].innerHTML = `Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${convertUnits(
+            weatherData[a].low,
+            unit
+        )}, High: ${convertUnits(weatherData[a].high, unit)}</div>`;
+    }
+}
+
+document.getElementById("cel_button").addEventListener("click", () => {
+    updateUnits("C");
+});
+
+document.getElementById("far_button").addEventListener("click", () => {
+    updateUnits("F");
+});
+
+document.getElementById("kel_button").addEventListener("click", () => {
+    updateUnits("K");
+});
+
+// make logged in stuff visible if user is signed in
+if (jwtObject !== null) {
+    document.getElementById("signed_in_root").removeAttribute("style");
+    add_locker_button.addEventListener("click", () => {
+        fetch("/api/add-locker-outfit", {
+            credentials: "same-origin",
+            method: "post",
+            body: {image_id: currentImageID}
+        }).then((fetchResponse) => {
+            // todo finish this add feature
+        });
+    });
 }
