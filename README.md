@@ -13,10 +13,8 @@ Run these commands from the db folder inside of this project
 
 **TODO:**
 
-- change add outfit button to "added" and then disabled it when outfit is added but change it back and re-enable it when a new outfit is generated
+-   corner case where user token is expired, they try to add to locker and it says image was added to locker, but then when they go to locker it isn't there, fix that
 -   Style the homepage city page and locker page
 -   add links to all products
--   add "add to locker buttton" if user is signed in and on the city page
--   add "remove from locker" button for all outfits in the locker pages
 -   make the app a pwa for mobile
 -   figure out how to do hosting
