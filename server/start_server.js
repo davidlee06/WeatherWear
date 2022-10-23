@@ -38,7 +38,8 @@ db.query("select 1 * 1;")
             })
             .catch(error);
     })
-    .catch(() => {
+    .catch((error) => {
         console.log("Unable to start server: unable to establish connection with the database. Exiting...");
+        console.log(error);
         process.exit(1);
     });
