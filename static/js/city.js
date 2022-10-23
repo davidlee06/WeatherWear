@@ -139,7 +139,7 @@ document.getElementById("kel_button").addEventListener("click", () => {
     updateUnits("K");
 });
 
-function addLockerButtonListener (currentImageID){
+function addLockerButtonListener(currentImageID) {
     if (window.logged_in === true) {
         document.getElementById("signed_in_root").removeAttribute("style");
         add_locker_button.addEventListener("click", () => {
@@ -147,11 +147,11 @@ function addLockerButtonListener (currentImageID){
                 credentials: "same-origin",
                 method: "post",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({image_id: currentImageID})
             }).then((fetchResponse) => {
-                add_locker_button.disabled=true;
+                add_locker_button.disabled = true;
             });
         });
     }

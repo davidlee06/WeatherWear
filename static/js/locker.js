@@ -18,10 +18,10 @@ fetch("/api/locker-image-info", {credentials: "same-origin"}).then((fetchRespons
                     credentials: "same-origin",
                     method: "post",
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({image_id: array[a]["id"]})
-                }).then((fetchResponse) => {
+                }).then(() => {
                     const image = document.getElementById("image-" + a);
                     image.remove();
                 });

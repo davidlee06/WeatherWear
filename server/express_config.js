@@ -1,5 +1,6 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
+const root_path = require("./root_path");
 const server = express();
 // root path of this project
 const rootPath = require("./root_path");
@@ -34,7 +35,7 @@ if (process.env.DEV === "true") {
 }
 
 // bootstrap files path
-server.use("/bootstrap", express.static(`${rootPath}/node_modules/bootstrap`));
+server.use("/bootstrap", express.static(`${root_path}/node_modules/bootstrap`));
 // static files routes
 server.use(express.static(`${rootPath}/static`));
 
