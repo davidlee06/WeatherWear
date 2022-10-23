@@ -3,7 +3,8 @@ const forecast_root = document.getElementById("forecast_root");
 const image_root = document.getElementById("image_root");
 const add_locker_button = document.getElementById("add_locker_button");
 let weatherData = [];
-let currentImageID;
+
+var currentImageID;
 
 // check to make sure that local storage has both lat and lon property before making any requests
 if (
@@ -75,9 +76,11 @@ if (
                         body: JSON.stringify({temp: (Number(weatherData[a].high) + Number(weatherData[a].low)) / 2})
                     }).then((fetchResponse) => {
                         fetchResponse.json().then(({image_id}) => {
+                            add_locker_button.disabled = false;
                             currentImageID = image_id;
+                            addLockerButtonListener(currentImageID);
                             // make button visible if not already visible and user is not signed in
-                            if (add_locker_button.hasAttribute("style") === false && jwtObject !== null) {
+                            if (add_locker_button.hasAttribute("style") === true && window.logged_in === true) {
                                 add_locker_button.removeAttribute("style");
                                 add_visible = true;
                             }
@@ -136,16 +139,20 @@ document.getElementById("kel_button").addEventListener("click", () => {
     updateUnits("K");
 });
 
-// make logged in stuff visible if user is signed in
-if (jwtObject !== null) {
-    document.getElementById("signed_in_root").removeAttribute("style");
-    add_locker_button.addEventListener("click", () => {
-        fetch("/api/add-locker-outfit", {
-            credentials: "same-origin",
-            method: "post",
-            body: {image_id: currentImageID}
-        }).then((fetchResponse) => {
-            // todo finish this add feature
+function addLockerButtonListener (currentImageID){
+    if (window.logged_in === true) {
+        document.getElementById("signed_in_root").removeAttribute("style");
+        add_locker_button.addEventListener("click", () => {
+            fetch("/api/add-locker-outfit", {
+                credentials: "same-origin",
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({image_id: currentImageID})
+            }).then((fetchResponse) => {
+                add_locker_button.disabled=true;
+            });
         });
-    });
+    }
 }

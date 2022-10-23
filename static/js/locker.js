@@ -6,7 +6,7 @@ const images_root = document.getElementById("images_root");
 fetch("/api/locker-image-info", {credentials: "same-origin"}).then((fetchResponse) => {
     fetchResponse.json().then((array) => {
         for (let a = 0; a < array.length; ++a) {
-            images_root.innerHTML += `<div><div>Outfit #${a + 1}: Time created: ${
+            images_root.innerHTML += `<div id="image-${a}"><div>Outfit #${a + 1}: Time created: ${
                 array[a]["time_created"]
             }</div><img src = "/api/get-image?image_id=${array[a]["id"]}"/><button class = "remove_button"
             }">Remove this outfit from locker</button></div>`;
@@ -17,9 +17,13 @@ fetch("/api/locker-image-info", {credentials: "same-origin"}).then((fetchRespons
                 fetch("/api/remove-locker-outfit", {
                     credentials: "same-origin",
                     method: "post",
-                    body: {image_id: array[a]["id"]}
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({image_id: array[a]["id"]})
                 }).then((fetchResponse) => {
-                    // todo finish this add feature
+                    const image = document.getElementById("image-" + a);
+                    image.remove();
                 });
             });
         }

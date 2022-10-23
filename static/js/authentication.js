@@ -7,6 +7,7 @@ for (let a = 0; a < fullCookies.length; ++a) {
 }
 
 if (jwtObject !== null) {
+    window.logged_in = true;
     document.getElementById("welcome").innerHTML = `Welcome, ${jwtObject.name}. You are logged in through Google.`;
     document.getElementById("sign_out_button").addEventListener("click", () => {
         document.cookie.split(";").forEach((cookie) => {
@@ -22,4 +23,6 @@ if (jwtObject !== null) {
             location.reload();
         }
     });
+} else {
+    window.logged_in = false;
 }
