@@ -4,21 +4,26 @@
         <meta charset="UTF-8" />
         <title>WeatherWear</title>
         <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/home.css" />
     </head>
     <body>
-        <h1>WeatherWear</h1>
-        <div id="welcome"></div>
-        <a href="/locker">My Locker</a>
-        <button id="sign_out_button">Sign Out</button>
-        <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
-        <input type="text" id="city_search" placeholder="enter city name" />
-        <div id="city_list_root"></div>
-        <button id="use_location_button">Use my location</button>
-
-        <!-- auth script -->
-        <script src="/js/authentication.js"></script>
-        <!-- javascript for this page -->
-        <script src="/js/index.js"></script>
-        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <div>
+            <h1 class="display-1">WeatherWear</h1>
+            <button class="btn btn-primary" id="sign_out_button">Sign Out</button></br></br>
+            <div class="profile">
+                <span id="welcome"></span>&nbsp&nbsp&nbsp<a href="/locker">My Locker</a>
+            </div>
+            <div class="search-bar">
+                <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
+                <input type="text" id="city_search" placeholder="enter city name" />
+                <div id="city_list_root"></div></br>
+                <button class="btn btn-primary" id="use_location_button">Use my location</button>
+            </div>
+            <!-- auth script -->
+            <script src="/js/authentication.js"></script>
+            <!-- javascript for this page -->
+            <script src="/js/index.js"></script>
+            <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        </div>
     </body>
 </html>
