@@ -22,8 +22,8 @@ body {
 }
 
 .search-bar {
-    text-align: center;
-    margin-top: 30px;
+    width: 450px;
+    margin: 30px auto;
 }
 
 #sign_out_button {
@@ -37,5 +37,19 @@ body {
 .google-button {
     width: 200px;
     margin: 0 auto; 
-    margin-top: 50px;
+    margin-top: 10px;
+    margin-right: 10px;
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+#use_location_button {
+  width: 200px;
+  float: right;
+}
+
+.dropdown {
+  width: 200px;
+  float: left;
 }

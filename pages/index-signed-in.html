@@ -7,23 +7,26 @@
         <link rel="stylesheet" href="/css/home.css" />
     </head>
     <body>
-        <div>
-            <h1 class="display-1">WeatherWear</h1>
-            <button class="btn btn-primary" id="sign_out_button">Sign Out</button></br></br>
-            <div class="profile">
-                <span id="welcome"></span>&nbsp&nbsp&nbsp<a href="/locker">My Locker</a>
-            </div>
-            <div class="search-bar">
-                <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
-                <input type="text" id="city_search" placeholder="enter city name" />
-                <div id="city_list_root"></div></br>
-                <button class="btn btn-primary" id="use_location_button">Use my location</button>
-            </div>
-            <!-- auth script -->
-            <script src="/js/authentication.js"></script>
-            <!-- javascript for this page -->
-            <script src="/js/index.js"></script>
-            <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <h1 class="display-1">WeatherWear</h1>
+        <button class="btn btn-primary" id="sign_out_button">Sign Out</button></br></br>
+        <div class="profile">
+            <span id="welcome"></span>&nbsp&nbsp&nbsp<a href="/locker">My Locker</a>
         </div>
+        <div class="search-bar">
+            <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
+            <div class="dropdown">
+                <input id="city_search" placeholder="enter city name" class="dropdown-toggle form-control" data-bs-toggle="dropdown" autocomplete="off" data-bs-display="static"/>
+                <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-right">
+                </ul>
+            </div>
+
+            <button id="use_location_button" class="btn btn-primary">Use my location</button>
+        </div>
+        <!-- auth script -->
+        <script src="/js/authentication.js"></script>
+        <!-- javascript for this page -->
+        <script src="/js/index.js"></script>
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        
     </body>
 </html>
