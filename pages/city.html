@@ -2,31 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <div class="ps-2 mt-2">
-            <a href="/"><button class="btn btn-primary">Home</button></a>
-        </div>
         <title>WeatherWear - City</title>
         <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" >
-        <link rel="stylesheet" href="/css/city.css">
     </head>
     <body>
         <h1>WeatherWear - City forecast for</h1>
-        <div id="city_name" class = "display-6">
-
+        <div id="city_name"></div>
+        <div id = "signed_in_root" style = "display: none;">
+            <div id="welcome"></div>
+            <a href="/locker">My Locker</a>
+            <button id="sign_out_button">Sign Out</button>
         </div>
-        <div id = "signed_in_root" style = "display: none;" >
-            <div id="welcome" class="lead"></div>
-            <a href="/locker"><button class="btn btn-secondary">My Locker</button></a>
-            <button id="sign_out_button" class="btn btn-primary">Sign Out</button>
-        </div>
-        <div id="forecast_root" class="lead"></div>
-        <div class="mt-2 ps-4 lead"><strong><u>Generate outfit for custom temperature</u></strong></div>
+        <a href="/">Home</a>
+        <div id="forecast_root"></div>
+        <div>Generate outfit for custom temperature</div>
         <input id="custom_temp" type="number" placeholder="custom temperature" />
-        <button id="custom_button"class="btn btn-success">Generate Outfit</button>
-        <button id = "cel_button" class="btn btn-success">Celcius</button>
-        <button id = "far_button" class="btn btn-success">Farenheight</buttonid>
-        <button id = "kel_button" class="btn btn-success">Kelvin</button>
-        <button id = "add_locker_button" style = "display: none;" class="btn btn-success">Add this outfit to my locker</button>
+        <button id="custom_button">Generate Outfit</button>
+        <button id = "cel_button">Celcius</button>
+        <button id = "far_button">Farenheight</buttonid>
+        <button id = "kel_button">Kelvin</button>
+        <button id = "add_locker_button" style = "display: none;">Add this outfit to my locker</button>
         <div id="image_root"></div>
         <!-- auth script -->
         <script src="/js/authentication.js"></script>

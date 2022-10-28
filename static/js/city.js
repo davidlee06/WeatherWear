@@ -59,11 +59,11 @@ if (
             }
 
             for (let a = 0; a < weatherData.length; ++a) {
-                forecast_root.innerHTML += `<div class = "date_weather_div"><strong>Date: ${new Date(
+                forecast_root.innerHTML += `<div class = "date_weather_div">Date: ${new Date(
                     weatherData[a].unix * 1000
                 ).toDateString()}, Low: ${weatherData[a].low}, High: ${
                     weatherData[a].high
-                }</div></strong><button class = "date_weather_rows btn btn-success">Click to generate outfit</button>`;
+                }</div><button class = "date_weather_rows">Click to generate outfit</button>`;
             }
             const date_rows = document.getElementsByClassName("date_weather_rows");
             for (let a = 0; a < date_rows.length; ++a) {
