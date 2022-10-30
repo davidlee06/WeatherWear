@@ -3,18 +3,23 @@
     <head>
         <meta charset="UTF-8" />
         <title>WeatherWear</title>
+        <div class="ps-2 mt-2">
+            <a href="/"><button class="btn btn-primary">Home</button></a>
+        </div>
         <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/locker.css" />
     </head>
     <body>
-        <h1>WeatherWear - My Locker</h1>
-        <div id="welcome"></div>
-        <a href="/">Home</a>
-        <button id="sign_out_button">Sign Out</button>
-        <div id="images_root"></div>
-        <!-- auth script -->
-        <script src="/js/authentication.js"></script>
-        <!-- js for this page -->
-        <script src="/js/locker.js"></script>
-        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <div id="locker-content">
+            <h1 class="display-2">WeatherWear - My Locker</h1>
+            <div id="welcome" class="lead"></div>
+            <button id="sign_out_button" class="btn btn-primary">Sign Out</button>
+            <div id="images_root"></div>
+            <!-- auth script -->
+            <script src="/js/authentication.js"></script>
+            <!-- js for this page -->
+            <script src="/js/locker.js"></script>
+            <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        </div>
     </body>
 </html>

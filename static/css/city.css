@@ -12,6 +12,7 @@ button {
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin-right: 10px;
 }
 
 #generate {
@@ -29,8 +30,6 @@ body {
 #city_name {
     text-align: center;
 }
-
-
 
 .search-bar {
     width: 450px;
@@ -52,4 +51,21 @@ body {
 #use_location_button {
   width: 200px;
   float: right;
+}
+
+#welcome {
+    text-align: center;
+}
+
+#welcome {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#forecast-info {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    margin: 0 auto;
 }
