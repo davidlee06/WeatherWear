@@ -1,9 +1,9 @@
-const db = require("./db_pool");
 const server = require("./express_config");
 const root_path = require("./root_path");
 const outfits = require("./jimp_init");
 const jimp = require("jimp");
 const google = require("./google_auth");
+const db = require("./db_connect");
 let baseImage;
 jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
     baseImage = image;
@@ -30,9 +30,12 @@ server.post("/api/new-image", (request, response) => {
         } else {
             section = "20C+";
         }
-        const head = outfits[section]["head"][Math.floor(Math.random() * outfits[section]["head"].length)];
-        const torso = outfits[section]["torso"][Math.floor(Math.random() * outfits[section]["torso"].length)];
-        const legs = outfits[section]["legs"][Math.floor(Math.random() * outfits[section]["legs"].length)];
+        const headIndex = Math.floor(Math.random() * outfits[section]["head"].length);
+        const head = outfits[section]["head"][headIndex];
+        const torsoIndex = Math.floor(Math.random() * outfits[section]["torso"].length);
+        const torso = outfits[section]["torso"][torsoIndex];
+        const legsIndex = Math.floor(Math.random() * outfits[section]["legs"].length);
+        const legs = outfits[section]["legs"][legsIndex];
         const feetIndex = Math.floor(Math.random() * outfits[section]["feet"].length);
         const feet = outfits[section]["feet"][feetIndex];
         const feetFlipped = outfits[section]["feetFlipped"][feetIndex];
@@ -43,8 +46,11 @@ server.post("/api/new-image", (request, response) => {
         image.blit(feet["image"], feet["x"], feet["y"]);
         image.blit(feetFlipped["image"], feetFlipped["x"], feetFlipped["y"]);
         // write image to database and respond with image id
-        image.getBuffer(jimp.AUTO, (error, buffer) => {
-            db.query("insert into weatherwear.outfit (image, user_id) values ($1, $2) returning id", [buffer, -1])
+        image.getBuffer(jimp.AUTO, (_, buffer) => {
+            db.query(
+                "insert into weatherwear.outfit (image_category, feet_id, head_id, legs_id, torso_id) values ($1, $2, $3, $4, $5) returning id;",
+                [section, feetIndex, headIndex, legsIndex, torsoIndex]
+            )
                 .then(({rows}) => {
                     response.send({image_id: rows[0]["id"]});
                     response.end();
@@ -58,6 +64,12 @@ server.post("/api/new-image", (request, response) => {
     }
 });
 
+function parseImageInfo(imageInfo) {
+    imageInfo["feet_id"] = Number(imageInfo["feet_id"]);
+    imageInfo["head_id"] = Number(imageInfo["head_id"]);
+    imageInfo["legs_id"] = Number(imageInfo["legs_id"]);
+    imageInfo["torso_id"] = Number(imageInfo["torso_id"]);
+}
 /*
 Post here to get image by id, respond with image file
 */
@@ -68,10 +80,41 @@ server.get("/api/get-image", (request, response) => {
         response.send("No image id provided. Please provide an image ID in the get request query.");
         response.end();
     } else {
-        db.query("select image from weatherwear.outfit where id = $1;", [request.query.image_id])
+        db.query("select * from weatherwear.outfit where id = $1;", [request.query.image_id])
             .then(({rows}) => {
-                response.write(rows[0].image, () => {
-                    response.end();
+                imageInfo = rows[0];
+                parseImageInfo(imageInfo);
+                let image = baseImage.clone();
+                image.blit(
+                    outfits[imageInfo["image_category"]]["head"][imageInfo["head_id"]]["image"],
+                    outfits[imageInfo["image_category"]]["head"][imageInfo["head_id"]]["x"],
+                    outfits[imageInfo["image_category"]]["head"][imageInfo["head_id"]]["y"]
+                );
+                image.blit(
+                    outfits[imageInfo["image_category"]]["legs"][imageInfo["legs_id"]]["image"],
+                    outfits[imageInfo["image_category"]]["legs"][imageInfo["legs_id"]]["x"],
+                    outfits[imageInfo["image_category"]]["legs"][imageInfo["legs_id"]]["y"]
+                );
+                image.blit(
+                    outfits[imageInfo["image_category"]]["torso"][imageInfo["torso_id"]]["image"],
+                    outfits[imageInfo["image_category"]]["torso"][imageInfo["torso_id"]]["x"],
+                    outfits[imageInfo["image_category"]]["torso"][imageInfo["torso_id"]]["y"]
+                );
+                image.blit(
+                    outfits[imageInfo["image_category"]]["feet"][imageInfo["feet_id"]]["image"],
+                    outfits[imageInfo["image_category"]]["feet"][imageInfo["feet_id"]]["x"],
+                    outfits[imageInfo["image_category"]]["feet"][imageInfo["feet_id"]]["y"]
+                );
+                image.blit(
+                    outfits[imageInfo["image_category"]]["feetFlipped"][imageInfo["feet_id"]]["image"],
+                    outfits[imageInfo["image_category"]]["feetFlipped"][imageInfo["feet_id"]]["x"],
+                    outfits[imageInfo["image_category"]]["feetFlipped"][imageInfo["feet_id"]]["y"]
+                );
+
+                image.getBuffer(jimp.AUTO, (_, buffer) => {
+                    response.write(buffer, () => {
+                        response.end();
+                    });
                 });
             })
             .catch((error) => {

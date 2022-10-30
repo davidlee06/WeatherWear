@@ -22,24 +22,26 @@ var ul = document.getElementById("dropdown-menu");
 ul.hidden = true;
 
 setInterval(() => {
-    if (string()===""){
+    if (string() === "") {
         ul.hidden = true;
     }
     if (string() !== oldString) {
-        ul.innerHTML = ""
+        ul.innerHTML = "";
         fetch(`https://api.weatherapi.com/v1/search.json?key=55daed32ec294eababf141438220204&q=${string()}`).then(
             (fetchResponse) => {
                 fetchResponse.json().then((array) => {
                     for (let a = 0; a < array.length; ++a) {
                         ul.hidden = false;
                         var li = document.createElement("li");
-                        var anchor = document.createElement('a')
-                        anchor.textContent = array[a]["name"]
-                        anchor.setAttribute('href', `#${array[a]["name"]}`);
+                        var anchor = document.createElement("a");
+                        anchor.textContent = array[a]["name"];
+                        anchor.setAttribute("href", `#${array[a]["name"]}`);
                         anchor.setAttribute("class", "dropdown-item");
                         li.appendChild(anchor);
                         ul.appendChild(li);
-                        anchor.addEventListener('click', ()=>{submitInfo(array[a]["lat"], array[a]["lon"], array[a]["name"])});
+                        anchor.addEventListener("click", () => {
+                            submitInfo(array[a]["lat"], array[a]["lon"], array[a]["name"]);
+                        });
                     }
                 });
             }
