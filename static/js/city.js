@@ -89,8 +89,15 @@ if (
                                 add_locker_button.removeAttribute("style");
                                 add_visible = true;
                             }
-                            image_root.innerHTML = `<img style="margin-bottom: 700px" src="/api/get-image?image_id=${image_id}" /><div id="image-end"></div>`;
-                            document.getElementById("image-end").scrollIntoView();
+                            image_root.innerHTML = `<div id="image-div"><img src="/api/get-image?image_id=${image_id}" /></div>`;
+                            var objDiv = document.getElementById("image-div");
+                            setTimeout(function () {
+                                objDiv.scrollIntoView({
+                                    behavior: 'auto',
+                                    block: 'center',
+                                    inline: 'center'
+                                });
+                           }, 100);
                         });
                     });
                 });
