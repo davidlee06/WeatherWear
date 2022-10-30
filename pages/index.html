@@ -11,9 +11,15 @@
         <!-- as user types in input into this text, hit the api and get a list of cities from their input that they could search for -->
         <div class="search-bar">
             <div class="dropdown">
-                <input id="city_search" placeholder="enter city name" class="dropdown-toggle form-control" data-bs-toggle="dropdown" autocomplete="off" data-bs-display="static"/>
-                <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-right">
-                </ul>
+                <input
+                    id="city_search"
+                    placeholder="enter city name"
+                    class="dropdown-toggle form-control"
+                    data-bs-toggle="dropdown"
+                    autocomplete="off"
+                    data-bs-display="static"
+                />
+                <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-right"></ul>
             </div>
 
             <button id="use_location_button" class="btn btn-primary">Use my location</button>
@@ -43,6 +49,5 @@
         <!-- google auth library script-->
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     </body>
 </html>

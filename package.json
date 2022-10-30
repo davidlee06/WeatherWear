@@ -1,7 +1,7 @@
 {
     "license": "ISC",
+    "main": "./server/start_server.js",
     "scripts": {
-        "dev": "nodemon server/start_server.js",
         "start": "node server/start_server.js"
     },
     "dependencies": {
@@ -14,9 +14,5 @@
         "google-auth-library": "^8.6.0",
         "jimp": "^0.16.2",
         "pg": "^8.7.3"
-    },
-    "devDependencies": {
-        "morgan": "^1.10.0",
-        "nodemon": "^2.0.19"
     }
 }

@@ -93,11 +93,11 @@ if (
                             var objDiv = document.getElementById("image-div");
                             setTimeout(function () {
                                 objDiv.scrollIntoView({
-                                    behavior: 'auto',
-                                    block: 'center',
-                                    inline: 'center'
+                                    behavior: "auto",
+                                    block: "center",
+                                    inline: "center"
                                 });
-                           }, 100);
+                            }, 100);
                         });
                     });
                 });
@@ -133,10 +133,12 @@ function convertUnits(temp, unit) {
 function updateUnits(unit) {
     const date_rows = document.getElementsByClassName("date_weather_div");
     for (let a = 0; a < date_rows.length; ++a) {
-        date_rows[a].innerHTML = `<strong>Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${convertUnits(
-            weatherData[a].low,
+        date_rows[a].innerHTML = `<strong>Date: ${new Date(
+            weatherData[a].unix * 1000
+        ).toDateString()}, Low: ${convertUnits(weatherData[a].low, unit)}, High: ${convertUnits(
+            weatherData[a].high,
             unit
-        )}, High: ${convertUnits(weatherData[a].high, unit)}</strong>`;
+        )}</strong>`;
     }
 }
 
