@@ -5,13 +5,6 @@ place the .env in the project folder, and then make sure it's added with the dot
 posted in the gc there are private keys and passwords in this file
 ```
 
-**Spin up container for database:**
-Run these commands from the db folder inside of this project
-
--   docker build -t "weatherwear-db-image" .
--   docker run --name weatherwear-db-container -d -p 5432:5432 weatherwear-db-image
--   docker exec weatherwear-db-container psql -d postgres -f /script/init_db.sql;
-
 After these steps are completed, run
 
 -   yarn start
