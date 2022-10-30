@@ -6,6 +6,10 @@ let weatherData = [];
 
 var currentImageID;
 
+if (window.logged_in == true) {
+    document.getElementById("signed_in_root").removeAttribute("style");
+}
+
 // check to make sure that local storage has both lat and lon property before making any requests
 if (
     localStorage.getItem("lat") === null ||
@@ -59,12 +63,13 @@ if (
             }
 
             for (let a = 0; a < weatherData.length; ++a) {
-                forecast_root.innerHTML += `<div class = "date_weather_div"><strong>Date: ${new Date(
+                forecast_root.innerHTML += `<div style="margin-bottom: 20px; margin-top: 20px; display: flex; vertical-align: middle; justify-content: space-between; width: 50%; margin: 20px auto;"><div class = "date_weather_div" style="float: left;"><strong>Date: ${new Date(
                     weatherData[a].unix * 1000
                 ).toDateString()}, Low: ${weatherData[a].low}, High: ${
                     weatherData[a].high
-                }</div></strong><button class = "date_weather_rows btn btn-success">Click to generate outfit</button>`;
+                }</strong></div><button class = "date_weather_rows btn btn-success" style="float: right; vertical-align: middle; display: inline-block;">Click to generate outfit</button></div>`;
             }
+            updateUnits("F");
             const date_rows = document.getElementsByClassName("date_weather_rows");
             for (let a = 0; a < date_rows.length; ++a) {
                 date_rows[a].addEventListener("click", () => {
@@ -84,7 +89,8 @@ if (
                                 add_locker_button.removeAttribute("style");
                                 add_visible = true;
                             }
-                            image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
+                            image_root.innerHTML = `<img style="margin-bottom: 700px" src="/api/get-image?image_id=${image_id}" /><div id="image-end"></div>`;
+                            document.getElementById("image-end").scrollIntoView();
                         });
                     });
                 });
@@ -120,10 +126,10 @@ function convertUnits(temp, unit) {
 function updateUnits(unit) {
     const date_rows = document.getElementsByClassName("date_weather_div");
     for (let a = 0; a < date_rows.length; ++a) {
-        date_rows[a].innerHTML = `Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${convertUnits(
+        date_rows[a].innerHTML = `<strong>Date: ${new Date(weatherData[a].unix * 1000).toDateString()}, Low: ${convertUnits(
             weatherData[a].low,
             unit
-        )}, High: ${convertUnits(weatherData[a].high, unit)}</div>`;
+        )}, High: ${convertUnits(weatherData[a].high, unit)}</strong>`;
     }
 }
 
@@ -141,7 +147,6 @@ document.getElementById("kel_button").addEventListener("click", () => {
 
 function addLockerButtonListener(currentImageID) {
     if (window.logged_in === true) {
-        document.getElementById("signed_in_root").removeAttribute("style");
         add_locker_button.addEventListener("click", () => {
             fetch("/api/add-locker-outfit", {
                 credentials: "same-origin",
