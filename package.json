@@ -1,6 +1,9 @@
 {
     "license": "ISC",
-    "main": "./server/start_server.js",
+    "engines": {
+        "node": "16.x",
+        "npm": "8.x"
+    },
     "scripts": {
         "start": "node server/start_server.js"
     },
