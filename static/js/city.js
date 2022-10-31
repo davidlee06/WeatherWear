@@ -8,6 +8,7 @@ var currentImageID;
 
 if (window.logged_in == true) {
     document.getElementById("signed_in_root").removeAttribute("style");
+    document.getElementById("locker_button").removeAttribute("style");
 }
 
 // check to make sure that local storage has both lat and lon property before making any requests
@@ -97,7 +98,7 @@ if (
                                     block: "center",
                                     inline: "center"
                                 });
-                            }, 100);
+                            }, 1200);
                         });
                     });
                 });
