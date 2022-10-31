@@ -4,7 +4,7 @@ const image_root = document.getElementById("image_root");
 const add_locker_button = document.getElementById("add_locker_button");
 let weatherData = [];
 
-var currentImageID;
+let currentImageID;
 
 if (window.logged_in == true) {
     document.getElementById("signed_in_root").removeAttribute("style");
@@ -91,8 +91,8 @@ if (
                                 add_visible = true;
                             }
                             image_root.innerHTML = `<div id="image-div"><img src="/api/get-image?image_id=${image_id}" /></div>`;
-                            var objDiv = document.getElementById("image-div");
-                            setTimeout(function () {
+                            let objDiv = document.getElementById("image-div");
+                            setTimeout(() => {
                                 objDiv.scrollIntoView({
                                     behavior: "auto",
                                     block: "center",

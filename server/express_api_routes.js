@@ -1,9 +1,9 @@
+const db = require("./db_connect");
 const server = require("./express_config");
 const root_path = require("./root_path");
 const outfits = require("./jimp_init");
 const jimp = require("jimp");
 const google = require("./google_auth");
-const db = require("./db_connect");
 let baseImage;
 jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
     baseImage = image;
