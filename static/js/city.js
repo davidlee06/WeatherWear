@@ -24,7 +24,7 @@ if (
     window.location.href = "/";
 } else {
     fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?lat=${localStorage.getItem("lat")}&lon=${localStorage.getItem(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${localStorage.getItem("lat")}&lon=${localStorage.getItem(
             "lon"
         )}&appid=294e262744e0da66d38e517c095e60eb`
     ).then((fetchResponse) => {
