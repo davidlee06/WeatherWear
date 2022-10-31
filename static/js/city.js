@@ -105,21 +105,6 @@ if (
             }
         });
     });
-    const custom_temp = document.getElementById("custom_temp");
-    const custom_button = document.getElementById("custom_button");
-    custom_button.addEventListener("click", () => {
-        fetch("/api/new-image", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({temp: Number(custom_temp.value)})
-        }).then((fetchResponse) => {
-            fetchResponse.json().then(({image_id}) => {
-                image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
-            });
-        });
-    });
 }
 function convertUnits(temp, unit) {
     if (unit === "C") {
@@ -165,7 +150,7 @@ function addLockerButtonListener(currentImageID) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({image_id: currentImageID})
-            }).then((fetchResponse) => {
+            }).then(() => {
                 add_locker_button.disabled = true;
             });
         });
