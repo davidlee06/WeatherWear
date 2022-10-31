@@ -18,7 +18,7 @@ function submitInfo(latData, lonData, cityName) {
     window.location.href = "/city";
 }
 
-var ul = document.getElementById("dropdown-menu");
+let ul = document.getElementById("dropdown-menu");
 ul.hidden = true;
 
 setInterval(() => {
@@ -32,8 +32,8 @@ setInterval(() => {
                 fetchResponse.json().then((array) => {
                     for (let a = 0; a < array.length; ++a) {
                         ul.hidden = false;
-                        var li = document.createElement("li");
-                        var anchor = document.createElement("a");
+                        let li = document.createElement("li");
+                        let anchor = document.createElement("a");
                         anchor.textContent = array[a]["name"];
                         anchor.setAttribute("href", `#${array[a]["name"]}`);
                         anchor.setAttribute("class", "dropdown-item");
