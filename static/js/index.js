@@ -65,6 +65,7 @@ if (window.logged_in) {
             for (let a = 0; a < saved_cities.length; ++a) {
                 const button = document.createElement("button");
                 button.setAttribute("class", "btn btn-primary saved_city_button");
+                button.setAttribute("style", "margin: 15px;");
                 button.innerHTML = saved_cities[a]["city_name"];
                 button.addEventListener("click", () => {
                     submitInfo(saved_cities[a]["lat"], saved_cities[a]["lon"], saved_cities[a]["city_name"]);
