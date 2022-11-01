@@ -73,7 +73,7 @@ if (window.logged_in) {
             }
         });
     });
-    const clear_cities = document.getElementById("clear_cities")
+    const clear_cities = document.getElementById("clear_cities");
     clear_cities.addEventListener("click", () => {
         fetch("/api/clear-saved-cities", {credentials: "same-origin"}).then(() => {
             saved_cities_root.innerHTML = "";

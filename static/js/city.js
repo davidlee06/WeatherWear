@@ -60,15 +60,15 @@ if (
                 weatherData.push({
                     unix: thisDayUnix,
                     low: thisDayTemps[0],
-                    high: thisDayTemps[thisDayTemps.length - 1]
+                    high: thisDayTemps[thisDayTemps.length - 1],
+                    weather: data.list[parseInt(a - thisDayTemps.length / 2)].weather[0].main
                 });
             }
-
             for (let a = 0; a < weatherData.length; ++a) {
                 forecast_root.innerHTML += `<div style="margin-bottom: 20px; margin-top: 20px; display: flex; vertical-align: middle; justify-content: space-between; width: 50%; margin: 20px auto;"><div class = "date_weather_div" style="float: left;"><strong>Date: ${new Date(
                     weatherData[a].unix * 1000
-                ).toDateString()}, Low: ${weatherData[a].low}, High: ${
-                    weatherData[a].high
+                ).toDateString()}, Low: ${weatherData[a].low}, High: ${weatherData[a].high}, ${
+                    weatherData[a].weather
                 }</strong></div><button class = "date_weather_rows btn btn-success" style="float: right; vertical-align: middle; display: inline-block;">Click to generate outfit</button></div>`;
             }
             updateUnits("F");
@@ -125,7 +125,7 @@ function updateUnits(unit) {
         ).toDateString()}, Low: ${convertUnits(weatherData[a].low, unit)}, High: ${convertUnits(
             weatherData[a].high,
             unit
-        )}</strong>`;
+        )}, ${weatherData[a].weather}</strong>`;
     }
 }
 
