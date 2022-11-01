@@ -9,6 +9,102 @@ jimp.read(`${root_path}/static/outfits/stick_figure_base.png`).then((image) => {
     baseImage = image;
 });
 
+server.get("/api/get-saved-cities", (request, response) => {
+    if (!request.cookies.token) {
+        response.statusCode = 400;
+        response.send("Send cookie with google JWT token");
+        response.end();
+    } else {
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("select city_name, lat, lon from weatherwear.saved_city where user_id = $1", [user.sub])
+                    .then(({rows}) => {
+                        response.statusCode = 200;
+                        response.send(rows);
+                        response.end();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        response.statusCode = 500;
+                        response.send("Database issue");
+                        response.end();
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.send("Expired/Invalid token");
+                response.end();
+            });
+    }
+});
+server.post("/api/save-city", (request, response) => {
+    if (!((request.cookies.token && request.body.city_name) || (request.body.lat && request.body.lon))) {
+        response.statusCode = 400;
+        response.send("Send cookie with google JWT token, include city_name, lat and lon fields in request body");
+        response.end();
+    } else {
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("insert into weatherwear.saved_city (city_name, lat, lon, user_id) values ($1, $2, $3, $4)", [
+                    request.body.city_name,
+                    request.body.lat,
+                    request.body.lon,
+                    user.sub
+                ])
+                    .then(() => {
+                        response.statusCode = 200;
+                        response.send("saved");
+                        response.end();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        response.statusCode = 500;
+                        response.send("Database issue");
+                        response.end();
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.send("Expired/Invalid token");
+                response.end();
+            });
+    }
+});
+server.get("/api/clear-saved-cities", (request, response) => {
+    if (!request.cookies.token) {
+        response.statusCode = 400;
+        response.send("Send cookie with google JWT token");
+        response.end();
+    } else {
+        google
+            .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
+            .then((ticket) => {
+                const user = ticket.getPayload();
+                db.query("delete from weatherwear.saved_city where user_id = $1", [user.sub])
+                    .then(() => {
+                        response.statusCode = 200;
+                        response.send("removed");
+                        response.end();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        response.statusCode = 500;
+                        response.send("Database issue");
+                        response.end();
+                    });
+            })
+            .catch(() => {
+                response.statusCode = 401;
+                response.send("Expired/Invalid token");
+                response.end();
+            });
+    }
+});
+
 /*
 Post here to generate new image, you give it temp in Kelvin, api responds, with id of image to then hit get-image from
 */

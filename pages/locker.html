@@ -2,11 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>WeatherWear</title>
         <div class="ps-2 mt-2">
             <a href="/"><button class="btn btn-primary">Home</button></a>
-            <a href="https://pickupplease.org/donate-clothing-in-new-jersey"><button class="btn btn-warning">Donate Clothes in NJ</button></a>
+            <a href="/city"><button id="city_button" class="btn btn-secondary">City Forecast</button></a>
+            <a href="https://pickupplease.org/donate-clothing-in-new-jersey"
+                ><button class="btn btn-warning">Donate Clothes in NJ</button></a
+            >
         </div>
         <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/css/locker.css" />
@@ -15,6 +18,10 @@
         <div id="locker-content">
             <h1 class="display-2">WeatherWear - My Locker</h1>
             <div id="welcome" class="lead"></div>
+            <div id="no_outfits" style="display: none" class="lead">
+                You do not have any outfits saved in your locker. Go and generate some on the city forecast, save them,
+                and check back here!
+            </div>
             <button id="sign_out_button" class="btn btn-primary">Sign Out</button>
             <div id="images_root"></div>
             <!-- auth script -->

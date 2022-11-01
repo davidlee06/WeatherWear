@@ -6,7 +6,7 @@ if (
     process.env.GOOGLE_CLIENT_SECRET &&
     process.env.DB_CONNECTION_STRING
 ) {
-    console.log("All enviornment variables loaded, checking connection with database...");
+    console.log("All enviornment variables loaded");
 } else {
     console.log(
         "Not all enviornment variables have been properly declared. Create a .env file and make sure its format " +

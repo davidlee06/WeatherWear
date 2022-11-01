@@ -34,6 +34,7 @@ if (
             if (localStorage.getItem("city_name") === "location") {
                 document.title = `WeatherWear - ${data.city.name}`;
                 city_name.innerHTML += `${data.city.name} (Approximate Location)`;
+                localStorage.setItem("city_name", data.city.name);
             } else {
                 document.title = `WeatherWear - ${localStorage.getItem("city_name")}`;
                 city_name.innerHTML += localStorage.getItem("city_name");
@@ -59,15 +60,15 @@ if (
                 weatherData.push({
                     unix: thisDayUnix,
                     low: thisDayTemps[0],
-                    high: thisDayTemps[thisDayTemps.length - 1]
+                    high: thisDayTemps[thisDayTemps.length - 1],
+                    weather: data.list[parseInt(a - thisDayTemps.length / 2)].weather[0].main
                 });
             }
-
             for (let a = 0; a < weatherData.length; ++a) {
                 forecast_root.innerHTML += `<div style="margin-bottom: 20px; margin-top: 20px; display: flex; vertical-align: middle; justify-content: space-between; width: 50%; margin: 20px auto;"><div class = "date_weather_div" style="float: left;"><strong>Date: ${new Date(
                     weatherData[a].unix * 1000
-                ).toDateString()}, Low: ${weatherData[a].low}, High: ${
-                    weatherData[a].high
+                ).toDateString()}, Low: ${weatherData[a].low}, High: ${weatherData[a].high}, ${
+                    weatherData[a].weather
                 }</strong></div><button class = "date_weather_rows btn btn-success" style="float: right; vertical-align: middle; display: inline-block;">Click to generate outfit</button></div>`;
             }
             updateUnits("F");
@@ -105,21 +106,6 @@ if (
             }
         });
     });
-    const custom_temp = document.getElementById("custom_temp");
-    const custom_button = document.getElementById("custom_button");
-    custom_button.addEventListener("click", () => {
-        fetch("/api/new-image", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({temp: Number(custom_temp.value)})
-        }).then((fetchResponse) => {
-            fetchResponse.json().then(({image_id}) => {
-                image_root.innerHTML = `<img src="/api/get-image?image_id=${image_id}" />`;
-            });
-        });
-    });
 }
 function convertUnits(temp, unit) {
     if (unit === "C") {
@@ -139,7 +125,7 @@ function updateUnits(unit) {
         ).toDateString()}, Low: ${convertUnits(weatherData[a].low, unit)}, High: ${convertUnits(
             weatherData[a].high,
             unit
-        )}</strong>`;
+        )}, ${weatherData[a].weather}</strong>`;
     }
 }
 
@@ -165,9 +151,32 @@ function addLockerButtonListener(currentImageID) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({image_id: currentImageID})
-            }).then((fetchResponse) => {
+            }).then(() => {
                 add_locker_button.disabled = true;
             });
         });
     }
+}
+
+const save_city_button = document.getElementById("save_city_button");
+
+if (window.logged_in) {
+    save_city_button.removeAttribute("style");
+    save_city_button.addEventListener("click", () => {
+        fetch("/api/save-city", {
+            credentials: "same-origin",
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                lat: localStorage.getItem("lat"),
+                lon: localStorage.getItem("lon"),
+                city_name: localStorage.getItem("city_name")
+            })
+        }).then(() => {
+            save_city_button.setAttribute("disabled", "true");
+            save_city_button.innerHTML = "City Saved";
+        });
+    });
 }

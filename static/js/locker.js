@@ -5,6 +5,9 @@ get all images
 const images_root = document.getElementById("images_root");
 fetch("/api/locker-image-info", {credentials: "same-origin"}).then((fetchResponse) => {
     fetchResponse.json().then((array) => {
+        if (array.length === 0) {
+            document.getElementById("no_outfits").removeAttribute("style");
+        }
         for (let a = 0; a < array.length; ++a) {
             images_root.innerHTML += `<div id="image-${a}"><h3 style="margin-top: 10px; margin-bottom: 10px;">Outfit #${
                 a + 1
