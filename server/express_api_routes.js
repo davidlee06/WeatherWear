@@ -19,7 +19,9 @@ server.get("/api/get-saved-cities", (request, response) => {
             .verifyIdToken({idToken: request.cookies.token, audience: process.env.GOOGLE_CLIENT_ID})
             .then((ticket) => {
                 const user = ticket.getPayload();
-                db.query("select city_name, lat, lon from weatherwear.saved_city where user_id = $1", [user.sub])
+                db.query("select distinct city_name, lat, lon from weatherwear.saved_city where user_id = $1", [
+                    user.sub
+                ])
                     .then(({rows}) => {
                         response.statusCode = 200;
                         response.send(rows);
