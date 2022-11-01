@@ -58,3 +58,10 @@ body {
     width: 200px;
     float: left;
 }
+
+.flex_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

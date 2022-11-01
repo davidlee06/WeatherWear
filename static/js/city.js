@@ -34,6 +34,7 @@ if (
             if (localStorage.getItem("city_name") === "location") {
                 document.title = `WeatherWear - ${data.city.name}`;
                 city_name.innerHTML += `${data.city.name} (Approximate Location)`;
+                localStorage.setItem("city_name", data.city.name);
             } else {
                 document.title = `WeatherWear - ${localStorage.getItem("city_name")}`;
                 city_name.innerHTML += localStorage.getItem("city_name");
@@ -155,4 +156,27 @@ function addLockerButtonListener(currentImageID) {
             });
         });
     }
+}
+
+const save_city_button = document.getElementById("save_city_button");
+
+if (window.logged_in) {
+    save_city_button.removeAttribute("style");
+    save_city_button.addEventListener("click", () => {
+        fetch("/api/save-city", {
+            credentials: "same-origin",
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                lat: localStorage.getItem("lat"),
+                lon: localStorage.getItem("lon"),
+                city_name: localStorage.getItem("city_name")
+            })
+        }).then(() => {
+            save_city_button.setAttribute("disabled", "true");
+            save_city_button.innerHTML = "City Saved";
+        });
+    });
 }
